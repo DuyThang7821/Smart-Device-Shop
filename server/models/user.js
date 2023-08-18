@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"); // Erase if already required
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 // Declare the Schema of the Mongo models
 var userSchema = new mongoose.Schema({
   firstname: {
