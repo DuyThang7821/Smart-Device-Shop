@@ -42,7 +42,17 @@ const getProducts = asyncHandler(async (req, res) => {
         const sortBy = req.query.sort.split(',').join(' ');
         queryCommand = queryCommand.sort(sortBy);
     }
-
+    // fields limiting
+    if (req.query.fields){
+      const fields = req.query.fields.split(',').join(' ');
+      queryCommand = queryCommand.select(fields);
+    }
+    // Pagination
+    // limit: so object lay ve khi goi API
+    const page = +req.query.page || 1;
+    const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
+    const skip = (page - 1) * limit;
+    queryCommand.skip(skip).limit(limit);
   // Excute query
   // so luong san pham thoa man !== so luong sp tra ve 1 lan goi API
   queryCommand.exec(async (err, response) => {
@@ -50,8 +60,9 @@ const getProducts = asyncHandler(async (req, res) => {
     const counts = await Product.find(formatedQueries).countDocuments();
     return res.status(200).json({
       success: response ? true : false,
+      counts,
       products: response ? response : "Cannot get products",
-      counts
+      
     });
   });
 });
@@ -75,10 +86,45 @@ const deleteProduct = asyncHandler(async (req, res) => {
   });
 });
 
+const ratings = asyncHandler(async(req, res)=>{
+  const { _id } = req.user;
+  const {star, comment, pid} = req.body;
+  if (!star || !pid) throw new Error ('Missing inputs')
+    const ratingProduct = await Product.findById(pid);
+    const alreadyRating = ratingProduct?.ratings?.find(el => el.postedBy.toString() === _id);
+    //console.log({alreadyRating});
+    // console.log(alreadyRating);
+    if(alreadyRating){
+      //update star & comment
+      await Product.updateOne({
+        ratings: {$elemMatch: alreadyRating}
+      },{
+        $set: { "ratings.$.star": star, "ratings.$.comment": comment}
+      }, {new: true});
+    } else{
+      // add star & comment
+      const response = await Product.findByIdAndUpdate(pid,{
+        $push : {ratings: {star, comment, postedBy: _id}}
+      }, {new: true})
+      
+    }
+    // sum rating
+    const updatedProduct = await Product.findById(pid)
+    const ratingCount = updatedProduct.ratings.length;
+    const sumRatings = updatedProduct.ratings.reduce((sum, el) => sum + +el.star, 0)
+    updatedProduct.totalRatings = Math.round(sumRatings * 10 / ratingCount) / 10;
+
+    await updatedProduct.save();
+    return res.status(200).json({
+      status: true,
+      updatedProduct
+    })
+})
 module.exports = {
   createProduct,
   getProduct,
   getProducts,
   updateProduct,
   deleteProduct,
+  ratings
 };
