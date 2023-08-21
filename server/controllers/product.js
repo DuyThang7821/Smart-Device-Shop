@@ -122,8 +122,13 @@ const ratings = asyncHandler(async(req, res)=>{
 });
 
 const uploadImagesProduct = asyncHandler(async(req, res)=>{
-  console.log(req.file);
-  return res.json('Oke')
+  const {pid} = req.params;
+  if(!req.files) throw new Error ('Missing inputs')
+  const response = await Product.findByIdAndUpdate(pid, {$push: {images: {$each: req.files.map(el => el.path)}}})
+  return res.status(200).json({
+    status: response ? true : false,
+    updatedProduct : response ? response : 'cannot upload imagesProduct'
+  })
 })
 module.exports = {
   createProduct,
