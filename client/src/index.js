@@ -5,15 +5,18 @@ import { store } from "./store/redux";
 import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const container = document.getElementById("root");
+
 const root = createRoot(container);
 
 root.render(
- 
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
