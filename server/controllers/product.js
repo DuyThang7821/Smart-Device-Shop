@@ -29,12 +29,11 @@ const getProducts = asyncHandler(async (req, res) => {
 
   // format lai cac operator cho dung cu phap mongoose
   let queryString = JSON.stringify(queries);
- queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, (macthedEl) => `$${macthedEl}`)
+  queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, macthedEl => `$${macthedEl}`)
   const formatedQueries = JSON.parse(queryString);
 
   // filtering
-  if (queries?.title)
-    formatedQueries.title = { $regex: queries.title, $options: "i" };
+  if (queries?.title) formatedQueries.title = { $regex: queries.title, $options: "i" };
   let queryCommand = Product.find(formatedQueries);
 
   // sorting
