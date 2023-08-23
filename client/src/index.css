@@ -4,36 +4,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 button.slick-next{
-  right: 80px;
+  right: 18px;
 z-index: 10;
 }
 
 button.slick-prev{
-    left: 20px;
+    left: -20px;
     z-index: 10;
 }
 
 button.slick-next::before{
-    color: gray;
+    color: #000;
     content: '\276F';
     background-color:  #ccc;
-    width: 80px;
-    height: 80px;
-    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
 
 }
 
 button.slick-prev::before{
-    color: gray;
+    color: #000;
     content: '\276E';
     background-color: #ccc;
-    width: 80px;
-    height: 80px;
-    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
 }
