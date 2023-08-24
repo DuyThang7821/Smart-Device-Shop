@@ -5,14 +5,17 @@ import trending from "../assets/trending.png";
 import {SelectOption} from './'
 import { renderStarFromNumber } from "../ultils/helpers";
 import icons from "../ultils/icons";
+import { Link } from "react-router-dom";
+import path from "../ultils/path";
 
 const { BsFillSuitHeartFill, AiFillEye, AiOutlineMenu} = icons
 const Product = ({ productData, isNew }) => {
 const [isShowOption, setIshowOption] = useState(false);
   return (
     <div className="w-full text-base px-[10px]  ">
-      <div 
+      <Link 
       className="w-full border p-[15px] flex flex-col items-center rounded-md"
+      to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
       onMouseEnter={e => {
         e.stopPropagation()
         setIshowOption(true)
@@ -42,11 +45,13 @@ const [isShowOption, setIshowOption] = useState(false);
    
         </div>
         <div className="flex flex-col gap-1 mt-[15px] items-start w-full">
-        <span className="flex h-4">{renderStarFromNumber(productData?.totalRatings)}</span>
+        <span className="flex h-4">{renderStarFromNumber(productData?.totalRatings)?.map((el,index)=>(
+          <span key={index}>{el}</span>
+        ))}</span>
           <span className="line-clamp-1">{productData?.title}</span>
           <span>{`${formatMoney(productData?.price)} VND`}</span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

@@ -70,7 +70,7 @@ const DealDaily = () => {
   }, [second, minute, hour, expireTime]);
 
   return (
-    <div className="border w-full flex-auto">
+    <div className="border w-full flex-auto rounded-md">
       <div className="flex items-center justify-between p-4 w-full">
         <span className="flex-1 flex justify-center">
           <AiFillStar size={20} color="red" />

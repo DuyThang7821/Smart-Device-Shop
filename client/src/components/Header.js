@@ -14,7 +14,7 @@ const Header = () => {
         <img src={logo} alt="logo" className="w-[234px]  object-contain" />
       </Link>
 
-      <div className="flex text-[13px] ">
+      <div className="flex text-[14px] ">
         <div className="flex flex-col px-6 border-r items-center">
           <span className="flex gap-4 items-center">
             <RiPhoneFill color="red" />
