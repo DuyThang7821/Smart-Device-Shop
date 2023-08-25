@@ -9,7 +9,8 @@ const cors = require ('cors');
 const app = express();
 app.use(cors({
     origin: process.env.CLIENT_URL,
-    methods: ['POST', 'PUT', 'DELETE', 'GET']
+    methods: ['POST', 'PUT', 'DELETE', 'GET'],
+    credentials: true
 }))
 app.use(cookieParser());
 const port = process.env.PORT || 8888

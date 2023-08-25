@@ -2,13 +2,14 @@ import React, { useState, useCallback } from "react";
 import { InputField, Button } from "../../components";
 import { apiRegister, apiLogin } from "../../apis/user";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import path from "../../ultils/path";
-import {register} from '../../store/user/userSlice';
+import {regiser} from '../../store/user/userSlice';
 import { useDispatch } from "react-redux";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [payload, setPayload] = useState({
     email: '',
     password: '',
@@ -43,7 +44,7 @@ const Login = () => {
     } else {
       const rs = await apiLogin(data)
       if (rs.success) {
-        dispatch(register({isLoggedIn: true, token: rs.accessToken, userData: rs.userData}))
+        dispatch(regiser({isLoggedIn: true, token: rs.accessToken, userData: rs.userData}))
         navigate(`/${path.HOME}`)
       } else  Swal.fire('Oops!', rs.mes, 'error');
     }
@@ -78,6 +79,7 @@ const Login = () => {
           value={payload.email}
           setValue={setPayload}
           nameKey="email"
+          type= "email"
         />
 
           {isRegister && <InputField
