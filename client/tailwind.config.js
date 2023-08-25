@@ -30,8 +30,18 @@ module.exports = {
       keyframes:{
         'slide-top':{
           '0%': {
-            '-webkit-transform': 'translateY(40px);',
+            '-webkit-transform': 'translateY(20px);',
                     transform: 'translateY(20px);'
+          },
+          '100%': {
+           '-webkit-transform': 'translateY(0px);',
+                    transform: 'translateY(0px);'
+          }
+        },
+        'slide-top-sm':{
+          '0%': {
+            '-webkit-transform': 'translateY(8px);',
+                    transform: 'translateY(8px);'
           },
           '100%': {
            '-webkit-transform': 'translateY(0px);',
@@ -40,7 +50,8 @@ module.exports = {
         }
       },
       animation:{
-        'slide-top': 'slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;'
+        'slide-top': 'slide-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;',
+        'slide-top-sm': 'slide-top 0.2s linear both;',
       }
     },
   },
