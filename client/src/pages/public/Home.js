@@ -28,7 +28,7 @@ const Home = () => {
       </div>
 
       <div className="my-8 w-full">
-        <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">NEW ARRIVALS</h3>
+        <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">SẢN PHẨM MỚI</h3>
           <div className=" mt-4 mx-[-10px]">
             <CustomSlider 
                 products={newProducts}
@@ -36,7 +36,7 @@ const Home = () => {
             </div>  
       </div>
       <div className="my-8 w-full">
-      <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">HOT COLLECTIONS</h3>
+      <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">DANH MỤC SẢN PHẨM</h3>
       <div className="flex flex-wrap gap-4 mt-4 ">
         {categories?.filter(el => el.brand.length > 0).map(el =>(
           <div
@@ -48,9 +48,9 @@ const Home = () => {
               <div className="flex-1 text-gray-700">
                 <h4 className="font-semibold uppercase">{el.title}</h4>
                 <ul className="text-sm">{el?.brand?.map(item =>(
-                  <span className="flex gap-2 items-center text-gray-500">
+                  <span key={item} className="flex gap-2 items-center text-gray-500">
                     <IoIosArrowForward size={14} />
-                    <li key={item}>{item}</li>
+                    <li>{item}</li>
                   </span>
                 ))}</ul>
               </div>
@@ -60,7 +60,7 @@ const Home = () => {
       </div>
       </div>
       <div className="my-8 w-full">
-      <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">BLOG POST</h3>
+      <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">BÀI VIẾT MỚI NHẤT</h3>
       </div>
     
     </>

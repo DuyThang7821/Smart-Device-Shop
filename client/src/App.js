@@ -22,7 +22,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="min-h-screen  font-main">
       <Routes>

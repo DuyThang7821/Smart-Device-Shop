@@ -28,7 +28,7 @@ const Header = () => {
             <MdEmail color="red" />
             <span className="font-semibold">thangcbq78@gmail.com</span>
           </span>
-          <span>Online Support 24/7</span>
+          <span>Hỗ trợ online 24/7</span>
         </div>
 
         <div className="flex items-center justify-center gap-2 px-6 border-r">

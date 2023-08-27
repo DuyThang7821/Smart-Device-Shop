@@ -2,24 +2,24 @@ import path from "./path"
 export  const navigation = [
     {
         id: 1,
-        value: 'HOME',
+        value: 'TRANG CHỦ',
         path: `/${path.HOME}`
     },
     {
         id: 2,
-        value: 'PRODUCTS',
+        value: 'TẤT CẢ SẢN PHẨM',
         path: `/${path.PRODUCTS}`
     },
 
     {
         id: 3,
-        value: 'BLOGS',
+        value: 'BÀI VIẾT',
         path: `/${path.BLOGS}`
     },
 
     {
         id: 4,
-        value: 'OUR SERVICES',
+        value: 'DỊCH VỤ CỦA CHÚNG TÔI',
         path: `/${path.OUR_SERVICES}`
     },
 

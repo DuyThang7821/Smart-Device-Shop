@@ -5,8 +5,8 @@ const TopHeader = () =>{
     return(
         <div className="h-[58px] w-full bg-main flex items-center justify-center">
             <div className="w-main flex items-center justify-between text-md text-white"> 
-            <span>ORDER ONLINE OR CALL US 0826257475</span>
-            <Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>Sign In or Create Account</Link>
+            <span>ĐẶT HÀNG ONLINE HOẶC LIÊN HỆ CHO CHÚNG TÔI: 0826257475</span>
+            <Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>Đăng nhập hoặc tạo tài khoản</Link>
             </div>
         </div>
     )

@@ -25,7 +25,7 @@ const DealDaily = () => {
     });
     if (response.success) {
       setDealdaily(response.products[0]);
-      const today = `${moment().format("MM/DD/YYYY")} 7:00:00`;
+      const today = `${moment().format("MM/DD/YYYY")} 5:00:00`;
       const seconds =
         new Date(today).getTime() - new Date().getTime() + 24 * 3600 * 1000;
 
@@ -76,7 +76,7 @@ const DealDaily = () => {
           <AiFillStar size={20} color="red" />
         </span>
         <span className="flex-8 font-semibold text-[20px] flex justify-center text-gray-700">
-          DEAL DAILY
+          ƯU ĐÃI HÀNG NGÀY
         </span>
         <span className="flex-1"></span>
       </div>
@@ -91,7 +91,9 @@ const DealDaily = () => {
         />
         <span className="line-clamp-1 text-center">{dealdaily?.title}</span>
         <span className="flex h-4">
-          {renderStarFromNumber(dealdaily?.totalRatings, 20)}
+          {renderStarFromNumber(dealdaily?.totalRatings, 20)?.map((el, index)=>(
+            <psan key={index}>{el}</psan>
+          ))}
         </span>
 
         <span>{`${formatMoney(dealdaily?.price)} VND`}</span>
