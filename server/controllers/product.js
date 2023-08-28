@@ -55,7 +55,7 @@ const getProducts = asyncHandler(async (req, res) => {
   // Excute query
   // so luong san pham thoa man !== so luong sp tra ve 1 lan goi API
   queryCommand.exec(async (err, response) => {
-    if (err) throw new Error(err.message);
+    if (err) throw new Error(err?.message);
     const counts = await Product.find(formatedQueries).countDocuments();
     return res.status(200).json({
       success: response ? true : false,

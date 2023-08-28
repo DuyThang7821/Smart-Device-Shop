@@ -17,7 +17,7 @@ const BestSeller = () => {
   const {newProducts} = useSelector(state => state.products)
   const fetchProducts = async () => {
     const response = await apiGetProducts({sort: '-sold'})
-    if (response.success) {
+    if (response?.success) {
       setBestSellers(response.products);
       setProducts(response.products);
     }
@@ -33,7 +33,7 @@ const BestSeller = () => {
   }, [activedTab]);
   return (
     <div>
-      <div className="flex text-[20px]   ml-[-32px]">
+      <div className="flex text-[20px] ml-[-32px]">
         {tabs.map((el) => (
           <span
             key={el.id}

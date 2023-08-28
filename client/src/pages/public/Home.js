@@ -27,7 +27,7 @@ const Home = () => {
         <FeatureProducts />
       </div>
 
-      <div className="my-8 w-full">
+      <div className="my-8 w-main">
         <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">SẢN PHẨM MỚI</h3>
           <div className=" mt-4 mx-[-10px]">
             <CustomSlider 
@@ -35,7 +35,7 @@ const Home = () => {
             />
             </div>  
       </div>
-      <div className="my-8 w-full">
+      <div className="my-8 w-main">
       <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">DANH MỤC SẢN PHẨM</h3>
       <div className="flex flex-wrap gap-4 mt-4 ">
         {categories?.filter(el => el.brand.length > 0).map(el =>(
@@ -59,7 +59,7 @@ const Home = () => {
         ))}
       </div>
       </div>
-      <div className="my-8 w-full">
+      <div className="my-8 w-main">
       <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">BÀI VIẾT MỚI NHẤT</h3>
       </div>
     

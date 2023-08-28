@@ -15,3 +15,4 @@ export {default as Footer} from './Footer';
 export {default as InputField} from './inputField';
 export {default as Button} from './Button';
 export {default as Breadcrumb} from './Breadcrumb';
+export {default as SelectQuantity} from './SelectQuantity';

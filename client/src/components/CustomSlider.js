@@ -11,7 +11,7 @@ const settings = {
 const CustomSlider = ({ products, activedTab }) => {
   return (
     <>
-      <Slider {...settings}>
+      {products && <Slider className="custom-slider" {...settings}>
         {products?.map((el, index) => (
           <Product
             key={index}
@@ -20,7 +20,7 @@ const CustomSlider = ({ products, activedTab }) => {
             isNew={activedTab === 1 ? false : true}
           />
         ))}
-      </Slider>
+      </Slider>}
     </>
   );
 };

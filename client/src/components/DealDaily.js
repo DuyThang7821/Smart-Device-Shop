@@ -23,7 +23,7 @@ const DealDaily = () => {
       page: Math.round(Math.random() * 10),
       totalRatings: [1,2,3,4,5],
     });
-    if (response.success) {
+    if (response?.success) {
       setDealdaily(response.products[0]);
       const today = `${moment().format("MM/DD/YYYY")} 5:00:00`;
       const seconds =

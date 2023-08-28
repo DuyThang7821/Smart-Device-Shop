@@ -42,9 +42,9 @@ const Login = () => {
   const handleForgotPassword = async () => {
     const response = await apiForgotPassword({ email });
 
-    if (response.success) {
-      toast.success(response.mes);
-    } else toast.warning(response.mes);
+    if (response?.success) {
+      toast?.success(response?.mes);
+    } else toast.warning(response?.mes);
   };
   useEffect(() => {
     resetPayload();
@@ -58,12 +58,12 @@ const Login = () => {
       if (isRegister) {
         const response = await apiRegister(payload);
 
-        if (response.success) {
+        if (response?.success) {
           setIsVerifiedEmail(true);
-        } else Swal.fire("Oops!", response.mes, "error");
+        } else Swal.fire("Oops!", response?.mes, "error");
       } else {
         const rs = await apiLogin(data);
-        if (rs.success) {
+        if (rs?.success) {
           dispatch(
             login({
               isLoggedIn: true,
@@ -72,18 +72,18 @@ const Login = () => {
             })
           );
           navigate(`/${path.HOME}`);
-        } else Swal.fire("Oops!", rs.mes, "error");
+        } else Swal.fire("Oops!", rs?.mes, "error");
       }
     }
   }, [payload, isRegister]);
   const finalRegister = async () => {
     const response = await apiFinalRegister(token);
-    if (response.success) {
-      Swal.fire("Congratulation", response.mes, "success").then(() => {
+    if (response?.success) {
+      Swal.fire("Congratulation", response?.mes, "success").then(() => {
         setIsRegister(false);
         resetPayload();
       });
-    } else Swal.fire("Oops!", response.mes, "error");
+    } else Swal.fire("Oops!", response?.mes, "error");
     setIsVerifiedEmail(false);
     setToken('')
   };

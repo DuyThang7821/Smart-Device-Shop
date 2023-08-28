@@ -23,7 +23,7 @@ export const productSlice = createSlice({
 
     builder.addCase(getNewProducts.rejected, (state, action) => {
       state.isLoading = false;
-      state.errorMessage = action.payload.message;
+      state.errorMessage = action.payload?.message;
     });
   },
 });

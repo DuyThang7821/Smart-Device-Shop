@@ -9,9 +9,9 @@ const ResetPassword = () => {
     
     const handleResetPassword = async() =>{
         const response = await apiResetPassword({password, token})
-        if(response.success){
-            toast.success(response.mes, {theme: 'light'})
-          }else toast.error(response.mes, {theme: 'light'});
+        if(response?.success){
+            toast?.success(response?.mes, {theme: 'light'})
+          }else toast.error(response?.mes, {theme: 'light'});
     }
   return (
     <div className="animate-slide-right absolute top-0 left-0 bottom-0 right-0 bg-gray-100 z-50 items-center flex flex-col py-8">

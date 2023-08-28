@@ -6,13 +6,13 @@ const FeatureProducts = () => {
 
   const fetchProducts = async () => {
     const response = await apiGetProducts({ limit: 9, totalRatings: 5 });
-    if (response.success) setProducts(response.products);
+    if (response?.success) setProducts(response.products);
   };
   useEffect(() => {
     fetchProducts();
   }, []);
   return (
-    <div className="w-full">
+    <div className="w-main">
       <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">
         SẢN PHẨM NỔI BẬT
       </h3>
