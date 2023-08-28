@@ -7,7 +7,7 @@ import {
   apiFinalRegister,
 } from "../../apis/user";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import path from "../../ultils/path";
 import { login } from "../../store/user/userSlice";
 import { useDispatch } from "react-redux";
@@ -226,6 +226,7 @@ const Login = () => {
             </span>
           )}
         </div>
+        <Link  className="text-blue-500 text-sm hover:underline cursor-pointer" to={`/${path.HOME}`}>Go home</Link>
       </div>
     </div>
   );
