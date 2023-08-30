@@ -36,7 +36,7 @@ const DetailProduct = () => {
 
   const fetchProducts = async () =>{
     const response = await apiGetProducts({category});
-    if (response?.success) setRelatedProducts(response.products);
+    if (response?.success) setRelatedProducts(response?.products);
   }
   useEffect(() => {
     if (pid) {
@@ -66,7 +66,7 @@ const DetailProduct = () => {
   );
   return (
     <div className="w-full">
-      <div className="h-[81px]  bg-gray-100 flex justify-center items-center bg-gray-100">
+      <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
         <div className="w-main">
           <h3 className="font-semibold">{title}</h3>
           <Breadcrumb title={title} category={category} />

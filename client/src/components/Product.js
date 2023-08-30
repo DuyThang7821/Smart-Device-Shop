@@ -12,7 +12,7 @@ const { BsFillSuitHeartFill, AiFillEye, AiOutlineMenu} = icons
 const Product = ({ productData, isNew, normal }) => {
 const [isShowOption, setIshowOption] = useState(false);
   return (
-    <div className="w-full text-base px-[10px]  ">
+    <div className="w-full text-base px-[10px]">
       <Link 
       className="w-full border p-[15px] flex flex-col items-center rounded-md"
       to={`/${productData?.category?.toLowerCase()}/${productData?._id}/${productData?.title}`}

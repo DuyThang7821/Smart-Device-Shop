@@ -13,7 +13,7 @@ const TopHeader = () =>{
         if(isLoggedIn) dispatch(getCurrent())
     },[dispatch, isLoggedIn])
     return(
-        <div className="h-[58px] w-full bg-main flex items-center justify-center">
+        <div className="h-[58px] w-full bg-blue-700 flex items-center justify-center">
             <div className="w-main flex items-center justify-between text-md text-white"> 
             <span>ĐẶT HÀNG ONLINE HOẶC LIÊN HỆ CHO CHÚNG TÔI: 0826257475</span>
             {isLoggedIn 
