@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import path from "../ultils/path";
 
 const { BsFillSuitHeartFill, AiFillEye, AiOutlineMenu} = icons
-const Product = ({ productData, isNew }) => {
+const Product = ({ productData, isNew, normal }) => {
 const [isShowOption, setIshowOption] = useState(false);
   return (
     <div className="w-full text-base px-[10px]  ">
@@ -41,7 +41,7 @@ const [isShowOption, setIshowOption] = useState(false);
           alt=""
           className="w-[274px] h-[274px] object-cover"
         />
-        <img src={isNew ? label : trending} alt="" className={`absolute w-[100px] h-[30px] top-0 right-[0] object-cover`}/>
+        {!normal && <img src={isNew ? label : trending} alt="" className={`absolute w-[100px] h-[30px] top-0 right-[0] object-cover`}/>}
    
         </div>
         <div className="flex flex-col gap-1 mt-[15px] items-start w-full">

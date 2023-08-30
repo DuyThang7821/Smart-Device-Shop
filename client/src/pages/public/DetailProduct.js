@@ -1,10 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiGetProduct } from "../../apis";
-import { Breadcrumb, Button, SelectQuantity} from "../../components";
+import { apiGetProduct, apiGetProducts } from "../../apis";
+import {
+  Breadcrumb,
+  Button,
+  ProductExtraInfoItem,
+  SelectQuantity,
+  ProductInfomation,
+  CustomSlider
+} from "../../components";
 import Slider from "react-slick";
 import ReactImageMagnify from "react-image-magnify";
-import {formatMoney, formatPrice, renderStarFromNumber } from '../../ultils/helpers'
+import { productExtraInfomation } from "../../ultils/contants";
+import {
+  formatMoney,
+  formatPrice,
+  renderStarFromNumber,
+} from "../../ultils/helpers";
 const settings = {
   dots: false,
   infinite: false,
@@ -16,30 +28,42 @@ const DetailProduct = () => {
   const { pid, title, category } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [relatedProducts, setRelatedProducts] = useState(null)
   const fetchProductData = async () => {
     const response = await apiGetProduct(pid);
     if (response?.success) setProduct(response.productData);
   };
+
+  const fetchProducts = async () =>{
+    const response = await apiGetProducts({category});
+    if (response?.success) setRelatedProducts(response.products);
+  }
   useEffect(() => {
-    if (pid) fetchProductData();
+    if (pid) {
+      fetchProductData()
+      fetchProducts()
+    };
   }, [pid]);
 
-  const handleQuantity = useCallback((number) =>{
-    let previous
-        if (!Number(number) || Number(number) < 1) {
-             return
-            
-        }else {
-            setQuantity(number)
-            
-        } 
-        
-  },[quantity])
-  const handleChangeQuantity = useCallback((flag) =>{
-    if(flag === 'minus' && quantity === 1) return
-    if(flag === 'minus') setQuantity(prev => +prev -1)
-    if(flag === 'plus') setQuantity(prev => +prev +1)
-  }, [quantity])
+  const handleQuantity = useCallback(
+    (number) => {
+      
+      if (!Number(number) || Number(number) < 1) {
+        return;
+      } else {
+        setQuantity(number);
+      }
+    },
+    [quantity]
+  );
+  const handleChangeQuantity = useCallback(
+    (flag) => {
+      if (flag === "minus" && quantity === 1) return;
+      if (flag === "minus") setQuantity((prev) => +prev - 1);
+      if (flag === "plus") setQuantity((prev) => +prev + 1);
+    },
+    [quantity]
+  );
   return (
     <div className="w-full">
       <div className="h-[81px]  bg-gray-100 flex justify-center items-center bg-gray-100">
@@ -83,29 +107,57 @@ const DetailProduct = () => {
         </div>
 
         <div className="w-2/5 pr-[24px] flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-[30px]">{`${formatMoney(formatPrice(product?.price))} VND`}</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-semibold text-[30px]">{`${formatMoney(
+              formatPrice(product?.price)
+            )} VND`}</h2>
             <span className="text-sm text-main">{`Kho: ${product?.quantity}`}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            {renderStarFromNumber(product?.totalRatings)?.map((el, index) => (
+              <span key={index}>{el}</span>
+            ))}
+            <span className="text-main text-sm italic">{`(Đã bán: ${product?.sold} cái)`}</span>
+          </div>
+          <ul className=" list-square pl-5 text-sm text-gray-600">
+            {product?.description?.map((el) => (
+              <li className="leading-6" key={el}>
+                {el}
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col gap-8">
+            <div className="flex items-center gap-4">
+              <span className="font-semibold">Quantity</span>
+              <SelectQuantity
+                quantity={quantity}
+                handleQuantity={handleQuantity}
+                handleChangeQuantity={handleChangeQuantity}
+              />
+              
             </div>
-            <div className="flex items-center gap-1">
-                {renderStarFromNumber(product?.totalRatings)?.map((el, index) =>(<span key={index}>{el}</span>))}
-                <span className="text-main text-sm italic">{`(Đã bán: ${product?.sold} cái)`}</span>
-            </div>
-            <ul className=" list-square pl-5 text-sm text-gray-600">
-                {product?.description?.map(el =>(<li className="leading-6" key={el}>{el}</li>))}
-            </ul>
-            <div className="flex flex-col gap-8">
-                <SelectQuantity
-                 quantity={quantity} 
-                 handleQuantity={handleQuantity}
-                 handleChangeQuantity={handleChangeQuantity} />
-                <Button fw>
-                    Add to cart
-                </Button>
-            </div>
+            <Button fw>Add to cart</Button>
+          </div>
         </div>
 
-        <div className="border border-blue-300 w-1/5">Infomation</div>
+        <div className="w-1/5">
+          {productExtraInfomation.map((el) => (
+            <ProductExtraInfoItem
+              key={el.id}
+              title={el.title}
+              icon={el.icon}
+              sub={el.sub}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="w-main m-auto mt-8">
+        <ProductInfomation />
+      </div>
+
+      <div className="w-main m-auto mt-8">
+      <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">OTHER CUSTOMER ALSO LIKED</h3>
+            <CustomSlider normal={true} products={relatedProducts} />
       </div>
       <div className="h-[500px] w-full"></div>
     </div>
