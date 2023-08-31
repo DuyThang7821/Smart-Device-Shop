@@ -25,13 +25,17 @@ const settings = {
   slidesToScroll: 1,
 };
 const DetailProduct = () => {
+  const [currentImage, setCurrentImage] = useState(null)
   const { pid, title, category } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState(null)
   const fetchProductData = async () => {
     const response = await apiGetProduct(pid);
-    if (response?.success) setProduct(response.productData);
+    if (response?.success) {
+      setProduct(response.productData);
+      setCurrentImage(response?.productData?.thumb)
+    }
   };
 
   const fetchProducts = async () =>{
@@ -43,6 +47,7 @@ const DetailProduct = () => {
       fetchProductData()
       fetchProducts()
     };
+    window.scroll(0, 0);
   }, [pid]);
 
   const handleQuantity = useCallback(
@@ -64,6 +69,10 @@ const DetailProduct = () => {
     },
     [quantity]
   );
+  const handleClickImage = (e, el) =>{
+    e.stopPropagation();
+    setCurrentImage(el)
+  }
   return (
     <div className="w-full">
       <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
@@ -74,16 +83,16 @@ const DetailProduct = () => {
       </div>
       <div className="w-main m-auto mt-4 flex">
         <div className="flex flex-col gap-4 w-2/5">
-          <div className="h-[458px] w-[458px] border">
+          <div className="h-[458px] w-[458px] border overflow-hidden">
             <ReactImageMagnify
               {...{
                 smallImage: {
                   alt: "Wristwatch by Ted Baker London",
                   isFluidWidth: true,
-                  src: product?.thumb,
+                  src: currentImage,
                 },
                 largeImage: {
-                  src: product?.thumb,
+                  src: currentImage,
                   width: 1000,
                   height: 900,
                 },
@@ -96,9 +105,10 @@ const DetailProduct = () => {
               {product?.images?.map((el) => (
                 <div key={el} className="px-2">
                   <img
+                    onClick={e => handleClickImage(e, el)}
                     src={el}
                     alt="sub-product"
-                    className="border h-[153px] w-[153px] object-cover"
+                    className="cursor-pointer border h-[143px] w-[143px] object-cover"
                   />
                 </div>
               ))}
@@ -152,14 +162,14 @@ const DetailProduct = () => {
         </div>
       </div>
       <div className="w-main m-auto mt-8">
-        <ProductInfomation />
+        <ProductInfomation totalRatings = {product?.totalRatings} totalCount={18} nameProduct={product?.title} />
       </div>
 
       <div className="w-main m-auto mt-8">
       <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">OTHER CUSTOMER ALSO LIKED</h3>
             <CustomSlider normal={true} products={relatedProducts} />
       </div>
-      <div className="h-[500px] w-full"></div>
+      <div className="h-[200px] w-full"></div>
     </div>
   );
 };
