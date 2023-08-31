@@ -19,3 +19,4 @@ export {default as SelectQuantity} from './SelectQuantity';
 export {default as ProductExtraInfoItem} from './ProductExtrainfoitem';
 export {default as ProductInfomation} from './Productinformation';
 export {default as SearchItem} from './Searchitem';
+export {default as InputSelect} from './inputSelect'
