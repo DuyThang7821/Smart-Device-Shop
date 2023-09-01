@@ -3,8 +3,8 @@ import {AiFillStar} from 'react-icons/ai'
 const Votebar = ({number, ratingCount, ratingTotal}) =>{
     const percentRef = useRef();
     useEffect (()=>{
-        console.log()
-        percentRef.current.style.cssText = `right: ${100 - Math.round(ratingCount * 100 / ratingTotal)}%`
+        const percent = Math.round(ratingCount * 100 / ratingCount) || 0
+        percentRef.current.style.cssText = `right: ${100 - percent}%`
     }, [ratingCount, ratingTotal])
     return(
         <div className="flex items-center gap-2 text-sm text-gray-500">

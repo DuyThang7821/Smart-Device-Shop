@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import { useDispatch } from "react-redux";
 import {showModal} from '../store/app/appSlice'
 const Modal = ({children}) =>{
@@ -12,4 +12,4 @@ const Modal = ({children}) =>{
         </div>
     )
 }
-export default Modal
+export default memo(Modal)

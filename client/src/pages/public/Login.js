@@ -85,7 +85,7 @@ const Login = () => {
       });
     } else Swal.fire("Oops!", response?.mes, "error");
     setIsVerifiedEmail(false);
-    setToken('')
+    setToken("");
   };
   return (
     <div className="w-screen h-screen flex justify-center items-center relative">
@@ -195,11 +195,10 @@ const Login = () => {
           setInvalidFields={setInvalidFields}
         />
 
-        <Button
-          name={isRegister ? "Đăng kí" : "Đăng nhập"}
-          handleOnClick={handleSubmit}
-          fw
-        />
+        <Button handleOnClick={handleSubmit} fw>
+          {isRegister ? "Đăng kí" : "Đăng nhập"}
+        </Button>
+
         <div className="flex items-center justify-between my-2 w-full text-sm">
           {!isRegister && (
             <span
@@ -226,7 +225,12 @@ const Login = () => {
             </span>
           )}
         </div>
-        <Link  className="text-blue-500 text-sm hover:underline cursor-pointer" to={`/${path.HOME}`}>Go home</Link>
+        <Link
+          className="text-blue-500 text-sm hover:underline cursor-pointer"
+          to={`/${path.HOME}`}
+        >
+          Go home
+        </Link>
       </div>
     </div>
   );
