@@ -1,6 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useParams, useSearchParams, createSearchParams, useNavigate} from "react-router-dom";
-import { Breadcrumb, Product, SearchItem, InputSelect, Pagination } from "../../components";
+import {
+  useParams,
+  useSearchParams,
+  createSearchParams,
+  useNavigate,
+} from "react-router-dom";
+import {
+  Breadcrumb,
+  Product,
+  SearchItem,
+  InputSelect,
+  Pagination,
+} from "../../components";
 import { apiGetProducts } from "../../apis";
 import { sorts } from "../../ultils/contants";
 import Masonry from "react-masonry-css";
@@ -12,56 +23,66 @@ const breakpointColumnsObj = {
 };
 
 const Products = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [products, setProducts] = useState(null);
   const [activeClick, setActiveClick] = useState(null);
   const [params] = useSearchParams();
-  const [sort, setSort] = useState('');
-  
+  const [sort, setSort] = useState("");
+
   const fetchProductsByCategory = async (queries) => {
     const response = await apiGetProducts(queries);
-    if (response?.success) setProducts(response.products);
+    if (response?.success) setProducts(response);
   };
   const { category } = useParams();
   useEffect(() => {
-    let param = []
-    for (let i of params.entries()) param.push(i)
-    const queries = {}
-    let priceQuery = {}
-    for(let i of params) queries[i[0]] = i[1]
-    if(queries.to && queries.from) {
-       priceQuery = {
+    let param = [];
+    for (let i of params.entries()) param.push(i);
+    const queries = {};
+    let priceQuery = {};
+    for (let i of params) queries[i[0]] = i[1];
+    if (queries.to && queries.from) {
+      priceQuery = {
         $and: [
-        { price: { gte: queries.from } },
-        { price: { lte: queries.to } }
-      ]
-    }
-      delete queries.price
+          { price: { gte: queries.from } },
+          { price: { lte: queries.to } },
+        ],
+      };
+      delete queries.price;
+    } else {
+      if (queries.from) queries.price = { gte: queries.from };
+      if (queries.to) queries.price = { lte: queries.to };
     }
 
-    if(queries.from)  queries.price = { gte: queries.from }
-    if(queries.to)  queries.price = { lte: queries.to }
-    delete queries.to
-    delete queries.from
-    
-    const q = {...priceQuery, ...queries}
+    delete queries.to;
+    delete queries.from;
+
+    const q = { ...priceQuery, ...queries };
     fetchProductsByCategory(q);
+    window.scrollTo(0, 0);
   }, [params]);
-  const changeActiveFilter = useCallback((name) => {
-    if(activeClick === name) setActiveClick(null);
-    else setActiveClick(name)
-  }, [activeClick]);
+  const changeActiveFilter = useCallback(
+    (name) => {
+      if (activeClick === name) setActiveClick(null);
+      else setActiveClick(name);
+    },
+    [activeClick]
+  );
 
-  const changeValue = useCallback ((value)=>{
-    setSort(value);
-  },[sort])
+  const changeValue = useCallback(
+    (value) => {
+      setSort(value);
+    },
+    [sort]
+  );
 
-  useEffect(()=>{
-    navigate({
-      pathname: `/${category}`,
-      search: createSearchParams({sort}).toString(),
-    });
-  },[sort])
+  useEffect(() => {
+    if (sort) {
+      navigate({
+        pathname: `/${category}`,
+        search: createSearchParams({ sort }).toString(),
+      });
+    }
+  }, [sort]);
   return (
     <div className="w-full">
       <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
@@ -90,12 +111,14 @@ const Products = () => {
         </div>
 
         <div className="w-1/5 flex flex-col gap-3">
-        <span className="font-semibold text-sm">Sort by</span>
-        <div className="w-full">
-          <InputSelect value={sort}
-          options={sorts}
-          changeValue={changeValue} />
-        </div>
+          <span className="font-semibold text-sm">Sort by</span>
+          <div className="w-full">
+            <InputSelect
+              value={sort}
+              options={sorts}
+              changeValue={changeValue}
+            />
+          </div>
         </div>
       </div>
       <div className="mt-8 w-main m-auto">
@@ -104,14 +127,14 @@ const Products = () => {
           className="my-masonry-grid flex mx-[-10px]"
           columnClassName="my-masonry-grid_column"
         >
-          {products?.map((el) => (
+          {products?.products?.map((el) => (
             <Product key={el._id} pid={el.id} productData={el} normal={true} />
           ))}
         </Masonry>
       </div>
 
       <div className="w-main m-auto my-4 flex justify-end">
-        <Pagination />
+        <Pagination totalCount={products?.counts} />
       </div>
       <div className="w-full h-[500px]"></div>
     </div>
