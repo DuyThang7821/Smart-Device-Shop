@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { InputField, Button } from "components";
+import { InputField, Button , Loading } from "components";
 import {
   apiRegister,
   apiLogin,
@@ -13,6 +13,7 @@ import { login } from "store/user/userSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { validate } from "ultils/helpers";
+import {showModal} from 'store/app/appSlice'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -56,8 +57,15 @@ const Login = () => {
       : validate(data, setInvalidFields);
     if (invalids === 0) {
       if (isRegister) {
+        dispatch(showModal({
+          isShowModal: true,
+          modalChildren: <Loading />
+        }))
         const response = await apiRegister(payload);
-
+        dispatch(showModal({
+          isShowModal: false,
+          modalChildren: null
+        }))
         if (response?.success) {
           setIsVerifiedEmail(true);
         } else Swal.fire("Oops!", response?.mes, "error");
