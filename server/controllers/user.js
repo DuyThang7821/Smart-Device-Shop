@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const sendMail = require("../ultils/sendMail");
 const crypto = require("crypto");
 const makeToken = require("uniqid");
-const {users} = require('../ultils/constant')
+const { users } = require("../ultils/constant");
 
 // const register = asyncHandler(async (req, res) => {
 //   const { email, password, firstname, lastname } = req.body;
@@ -248,8 +248,24 @@ const getUsers = asyncHandler(async (req, res) => {
   // filtering
   if (queries?.name)
     formatedQueries.name = { $regex: queries.name, $options: "i" };
+  // const query = {}
+  //   if(req.query.q) {
+  //     query = {$or: [
+  //       {name:  { $regex: queries.name, $options: "i" }},
+  //       {email: { $regex: queries.email, $options: "i"}}
+  //     ]}
+  //   }
 
-  let queryCommand = User.find(queries);
+  if (req.query.q) {
+    delete formatedQueries.q
+    formatedQueries["$or"] = [
+      { firstname: { $regex: req.query.q, $options: "i" } },
+      { lastname: { $regex: req.query.q, $options: "i" } },
+      { email: { $regex: req.query.q, $options: "i" } },
+    ];
+  }
+  
+  let queryCommand = User.find(formatedQueries);
 
   // sorting
   if (req.query.sort) {
@@ -261,6 +277,7 @@ const getUsers = asyncHandler(async (req, res) => {
     const fields = req.query.fields.split(",").join(" ");
     queryCommand = queryCommand.select(fields);
   }
+
   // Pagination
   // limit: so object lay ve khi goi API
   const page = +req.query.page || 1;
@@ -281,12 +298,12 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
-  const { _id } = req.query;
-  if (!_id) throw new Error("Missing inputs");
-  const response = await User.findByIdAndDelete(_id);
+  const { uid } = req.params;
+  
+  const response = await User.findByIdAndDelete(uid);
   return res.status(200).json({
     success: response ? true : false,
-    deletedUser: response
+    mes: response
       ? `User with email ${response.email} deleted`
       : "No user delete",
   });
@@ -315,7 +332,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
   }).select("-password -role -refreshToken");
   return res.status(200).json({
     success: response ? true : false,
-    updatedUser: response ? response : "Some thing went wrong",
+    mes: response ? 'updated' : "Some thing went wrong",
   });
 });
 
@@ -376,14 +393,13 @@ const updateCart = asyncHandler(async (req, res) => {
   }
 });
 
-const createUsers = asyncHandler (async (req, res) =>{
-   const response = await User.create(users)
-   return res.status(200).json({
+const createUsers = asyncHandler(async (req, res) => {
+  const response = await User.create(users);
+  return res.status(200).json({
     success: response ? true : false,
     users: response ? response : "Something went wrong",
   });
-}) 
-
+});
 
 module.exports = {
   register,
@@ -400,5 +416,5 @@ module.exports = {
   updateUserAddress,
   updateCart,
   finalRegister,
-  createUsers
+  createUsers,
 };
