@@ -1,28 +1,50 @@
-import {RiPhoneFill, RiTruckFill} from 'react-icons/ri';
-import {MdEmail} from 'react-icons/md';
-import {BsHandbagFill, BsFillSuitHeartFill, BsShieldShaded, BsReplyFill} from 'react-icons/bs';
-import {FaUserCircle , FaTty} from 'react-icons/fa';
-import {AiFillHome , AiFillStar, AiOutlineStar , AiFillEye, AiOutlineMenu,  AiOutlineLogout,AiFillGift , AiOutlineDown} from 'react-icons/ai';
-import {IoIosArrowForward} from 'react-icons/io';
-const icons ={
-    RiPhoneFill,
-    MdEmail,
-    BsHandbagFill,
-    FaUserCircle,
-    AiFillHome,
-    AiOutlineStar,
-    AiFillStar,
-    BsFillSuitHeartFill,
-    AiFillEye,
-    AiOutlineMenu,
-    IoIosArrowForward,
-    AiOutlineLogout,
-    BsShieldShaded,
-    RiTruckFill,
-    AiFillGift,
-    BsReplyFill,
-    FaTty,
-    AiOutlineDown
-}
+import { RiPhoneFill, RiTruckFill,RiBillLine } from "react-icons/ri";
+import { MdEmail, MdGroups } from "react-icons/md";
+import {
+  BsHandbagFill,
+  BsFillSuitHeartFill,
+  BsShieldShaded,
+  BsReplyFill,
+} from "react-icons/bs";
+import { FaUserCircle, FaTty } from "react-icons/fa";
+import {
+  AiFillHome,
+  AiFillStar,
+  AiOutlineStar,
+  AiFillEye,
+  AiOutlineMenu,
+  AiOutlineLogout,
+  AiFillGift,
+  AiOutlineDown,
+  AiOutlineDashboard,
+  AiOutlineCaretDown,
+} from "react-icons/ai";
+import { IoIosArrowForward } from "react-icons/io";
+import {TbBrandProducthunt} from "react-icons/tb"
+const icons = {
+  RiPhoneFill,
+  MdEmail,
+  BsHandbagFill,
+  FaUserCircle,
+  AiFillHome,
+  AiOutlineStar,
+  AiFillStar,
+  BsFillSuitHeartFill,
+  AiFillEye,
+  AiOutlineMenu,
+  IoIosArrowForward,
+  AiOutlineLogout,
+  BsShieldShaded,
+  RiTruckFill,
+  AiFillGift,
+  BsReplyFill,
+  FaTty,
+  AiOutlineDown,
+  AiOutlineDashboard,
+  MdGroups,
+  TbBrandProducthunt,
+  RiBillLine,
+  AiOutlineCaretDown
+};
 
-export default icons
+export default icons;

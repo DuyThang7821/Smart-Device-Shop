@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 
 const Button = ({
   children,
@@ -26,4 +26,4 @@ const Button = ({
     </button>
   );
 };
-export default Button;
+export default memo(Button);

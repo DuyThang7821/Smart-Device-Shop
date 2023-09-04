@@ -1,14 +1,14 @@
 import React, { useState, useEffect, memo } from "react";
-import icons from "../ultils/icons";
-import { apiGetProducts } from "../apis/product";
+import icons from "../../ultils/icons";
+import { apiGetProducts } from "../../apis/product";
 import moment from 'moment';
 
 import {
   renderStarFromNumber,
   formatMoney,
   secondsToHms,
-} from "../ultils/helpers";
-import { Countdown } from "./";
+} from "../../ultils/helpers";
+import { Countdown } from "..";
 const { AiFillStar, AiOutlineMenu } = icons;
 let idInterval;
 const DealDaily = () => {

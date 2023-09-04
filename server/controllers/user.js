@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const sendMail = require("../ultils/sendMail");
 const crypto = require("crypto");
 const makeToken = require("uniqid");
+const {users} = require('../ultils/constant')
 
 // const register = asyncHandler(async (req, res) => {
 //   const { email, password, firstname, lastname } = req.body;
@@ -37,35 +38,49 @@ const register = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   if (user) throw new Error("User has existed");
   else {
-    const token = makeToken()
-    const emailedited = btoa(email) + '@' +token
+    const token = makeToken();
+    const emailedited = btoa(email) + "@" + token;
     const newUser = await User.create({
-      email: emailedited, password, firstname, lastname, mobile
-    })
-    if(newUser){
-      const html = `<h2>Register code:</h2> <br /><blockquote>${token}</blockquote>`
-      await sendMail({email,html,subject: "Confirm register account in Smart-device-shop"});
+      email: emailedited,
+      password,
+      firstname,
+      lastname,
+      mobile,
+    });
+    if (newUser) {
+      const html = `<h2>Register code:</h2> <br /><blockquote>${token}</blockquote>`;
+      await sendMail({
+        email,
+        html,
+        subject: "Confirm register account in Smart-device-shop",
+      });
     }
-    setTimeout(async()=>{
-      await User.deleteOne({email: emailedited})
-    }, [300000])
+    setTimeout(async () => {
+      await User.deleteOne({ email: emailedited });
+    }, [300000]);
     return res.json({
       success: newUser ? true : false,
-      mes: newUser ? "Please check your email active account" : 'Something went wrong, pls try again',
+      mes: newUser
+        ? "Please check your email active account"
+        : "Something went wrong, pls try again",
     });
   }
 });
 const finalRegister = asyncHandler(async (req, res) => {
   // const cookie = req.cookies;
   const { token } = req.params;
-  const notActivedEmail = await User.findOne({email: new RegExp(`${token}$`)})
-  if(notActivedEmail){
-    notActivedEmail.email = atob(notActivedEmail.email?.split('@')[0]);
+  const notActivedEmail = await User.findOne({
+    email: new RegExp(`${token}$`),
+  });
+  if (notActivedEmail) {
+    notActivedEmail.email = atob(notActivedEmail.email?.split("@")[0]);
     notActivedEmail.save();
   }
   return res.json({
     success: notActivedEmail ? true : false,
-    mes: notActivedEmail ? 'Register is successfully. Please go login' : 'Something went wrong, pls try again',
+    mes: notActivedEmail
+      ? "Register is successfully. Please go login"
+      : "Something went wrong, pls try again",
   });
 });
 
@@ -186,16 +201,24 @@ const forgotPassword = asyncHandler(async (req, res) => {
   };
   const rs = await sendMail(data);
   return res.status(200).json({
-    success: rs.response?.includes('OK') ? true : false,
-    mes: rs.response?.includes('OK') ? 'Hãy kiểm tra email của bạn.' : 'Đã có lỗi, hãy thữ lại sau' 
+    success: rs.response?.includes("OK") ? true : false,
+    mes: rs.response?.includes("OK")
+      ? "Hãy kiểm tra email của bạn."
+      : "Đã có lỗi, hãy thữ lại sau",
   });
 });
 
 const resetPassword = asyncHandler(async (req, res) => {
   const { password, token } = req.body;
   if (!password || !token) throw new Error("Missing inputs");
-  const passwordResetToken = crypto.createHash("sha256").update(token).digest("hex");
-  const user = await User.findOne({passwordResetToken,passwordResetExpires: { $gt: Date.now() }});
+  const passwordResetToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+  const user = await User.findOne({
+    passwordResetToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
   if (!user) throw new Error("Invalid reset token");
   user.password = password;
   user.passwordResetToken = undefined;
@@ -209,10 +232,51 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 const getUsers = asyncHandler(async (req, res) => {
-  const response = await User.find().select("-refreshToken -password -role");
-  return res.status(200).json({
-    success: response ? true : false,
-    users: response,
+  const queries = { ...req.query };
+  // Tach cac truong dac biet ra khoi query
+  const excludeFields = ["limit", "sort", "page", "fields"];
+  excludeFields.forEach((el) => delete queries[el]);
+
+  // format lai cac operator cho dung cu phap mongoose
+  let queryString = JSON.stringify(queries);
+  queryString = queryString.replace(
+    /\b(gte|gt|lt|lte)\b/g,
+    (macthedEl) => `$${macthedEl}`
+  );
+  const formatedQueries = JSON.parse(queryString);
+
+  // filtering
+  if (queries?.name)
+    formatedQueries.name = { $regex: queries.name, $options: "i" };
+
+  let queryCommand = User.find(queries);
+
+  // sorting
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    queryCommand = queryCommand.sort(sortBy);
+  }
+  // fields limiting
+  if (req.query.fields) {
+    const fields = req.query.fields.split(",").join(" ");
+    queryCommand = queryCommand.select(fields);
+  }
+  // Pagination
+  // limit: so object lay ve khi goi API
+  const page = +req.query.page || 1;
+  const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
+  const skip = (page - 1) * limit;
+  queryCommand.skip(skip).limit(limit);
+  // Excute query
+  // so luong san pham thoa man !== so luong sp tra ve 1 lan goi API
+  queryCommand.exec(async (err, response) => {
+    if (err) throw new Error(err?.message);
+    const counts = await User.find(formatedQueries).countDocuments();
+    return res.status(200).json({
+      success: response ? true : false,
+      counts,
+      users: response ? response : "Cannot get users",
+    });
   });
 });
 
@@ -311,6 +375,16 @@ const updateCart = asyncHandler(async (req, res) => {
     });
   }
 });
+
+const createUsers = asyncHandler (async (req, res) =>{
+   const response = await User.create(users)
+   return res.status(200).json({
+    success: response ? true : false,
+    users: response ? response : "Something went wrong",
+  });
+}) 
+
+
 module.exports = {
   register,
   login,
@@ -326,4 +400,5 @@ module.exports = {
   updateUserAddress,
   updateCart,
   finalRegister,
+  createUsers
 };

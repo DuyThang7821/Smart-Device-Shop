@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import { formatMoney } from "../ultils/helpers";
-import label from "../assets/new.png";
-import trending from "../assets/trending.png";
-import {SelectOption} from './'
-import { renderStarFromNumber } from "../ultils/helpers";
-import icons from "../ultils/icons";
+import React, {useState, memo} from "react";
+import { formatMoney } from "../../ultils/helpers";
+import label from "assets/new.png";
+import trending from "assets/trending.png";
+import {SelectOption} from '..'
+import { renderStarFromNumber } from "../../ultils/helpers";
+import icons from "../../ultils/icons";
 import { Link } from "react-router-dom";
-import path from "../ultils/path";
+import path from "../../ultils/path";
 
 const { BsFillSuitHeartFill, AiFillEye, AiOutlineMenu} = icons
 const Product = ({ productData, isNew, normal }) => {
@@ -55,4 +55,4 @@ const [isShowOption, setIshowOption] = useState(false);
     </div>
   );
 };
-export default Product;
+export default memo(Product);

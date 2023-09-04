@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { apiGetProducts } from "../apis/product";
-import { Product, CustomSlider } from "./";
-import {getNewProducts} from '../store/products/asynsActions'
+import React, { useEffect, useState, memo } from "react";
+import { apiGetProducts } from "../../apis/product";
+import { Product, CustomSlider } from "..";
+import {getNewProducts} from '../../store/products/asynsActions'
 import { useDispatch, useSelector } from "react-redux";
 const tabs = [
   { id: 1, name: "mặt hàng bán chạy" },
@@ -65,4 +65,4 @@ const BestSeller = () => {
     </div>
   );
 };
-export default BestSeller;
+export default memo(BestSeller);

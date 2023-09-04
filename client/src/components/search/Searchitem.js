@@ -1,10 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
-import icons from "../ultils/icons";
-import { colors } from "../ultils/contants";
-import { apiGetProducts } from "../apis";
+import icons from "../../ultils/icons";
+import { colors } from "../../ultils/contants";
+import { apiGetProducts } from "../../apis";
 import { createSearchParams, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import path from "../ultils/path";
-import useDebounce from '../hooks/useDebounce'
+import path from "../../ultils/path";
+import useDebounce from '../../hooks/useDebounce'
 const { AiOutlineDown } = icons;
 const SearchItem = ({
   name,

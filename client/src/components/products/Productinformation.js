@@ -1,13 +1,13 @@
 import React, { memo, useEffect, useState, useCallback } from "react";
-import { productInfoTabs } from "../ultils/contants";
-import { Votebar, Button, VoteOption, Comment } from "./";
-import { renderStarFromNumber } from "../ultils/helpers";
-import { apiRatings } from "../apis";
+import { productInfoTabs } from "../../ultils/contants";
+import { Votebar, Button, VoteOption, Comment } from "..";
+import { renderStarFromNumber } from "../../ultils/helpers";
+import { apiRatings } from "../../apis";
 import { useDispatch, useSelector } from "react-redux";
-import { showModal } from "../store/app/appSlice";
+import { showModal } from "../../store/app/appSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import path from "../ultils/path";
+import path from "../../ultils/path";
 
 const ProductInfomation = ({
   totalRatings,

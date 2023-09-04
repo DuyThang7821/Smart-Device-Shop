@@ -1,7 +1,7 @@
-import React from "react";
-import avatar from "../assets/avatarDefault.jpg";
+import React,{memo} from "react";
+import avatar from "assets/avatarDefault.jpg";
 import moment from "moment";
-import { renderStarFromNumber } from "../ultils/helpers";
+import { renderStarFromNumber } from "../../ultils/helpers";
 const Comment = ({
   image = avatar,
   name = "Anonymous",
@@ -44,4 +44,4 @@ const Comment = ({
     </div>
   );
 };
-export default Comment;
+export default memo(Comment);
