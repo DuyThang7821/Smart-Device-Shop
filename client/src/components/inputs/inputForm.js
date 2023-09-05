@@ -9,7 +9,7 @@ const InputForm = ({label, disabled, register, errors, id, validate, type='text'
             disabled={disabled}
             placeholder={placeholder}
             defaultValue={defaultValue}
-            className={clsx('form-input', fullWidth && 'w-full')} />
+            className={clsx('form-input my-auto', fullWidth && 'w-full')} />
 
             {errors[id] && <small className="text-xs text-red-500">{errors[id]?.message}</small>}
         </div>
