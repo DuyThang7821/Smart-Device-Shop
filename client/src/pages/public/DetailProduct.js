@@ -93,7 +93,7 @@ const DetailProduct = () => {
       </div>
       <div className="w-main m-auto mt-4 flex">
         <div className="flex flex-col gap-4 w-2/5">
-          <div className="h-[458px] w-[458px] border overflow-hidden">
+          <div className="h-[458px] w-[458px] border flex items-center overflow-hidden">
             <ReactImageMagnify
               {...{
                 smallImage: {
@@ -106,6 +106,7 @@ const DetailProduct = () => {
                   width: 1000,
                   height: 900,
                 },
+                
               }}
             />
           </div>
@@ -145,7 +146,7 @@ const DetailProduct = () => {
                 {el}
               </li>
             ))}
-            {product?.description?.length === 1 && <div className="text-sm" dangerouslySetInnerHTML = {{__html: DOMPurify.sanitize(product?.description[0]) }}></div>}
+            {product?.description?.length === 1 && <div className="text-sm line-clamp-[10]" dangerouslySetInnerHTML = {{__html: DOMPurify.sanitize(product?.description[0]) }}></div>}
           </ul>
           <div className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
