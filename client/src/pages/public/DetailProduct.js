@@ -17,6 +17,7 @@ import {
   formatPrice,
   renderStarFromNumber,
 } from "../../ultils/helpers";
+import DOMPurify from "dompurify";
 const settings = {
   dots: false,
   infinite: false,
@@ -139,11 +140,12 @@ const DetailProduct = () => {
             <span className="text-main text-sm italic">{`(Đã bán: ${product?.sold} cái)`}</span>
           </div>
           <ul className=" list-square pl-5 text-sm text-gray-600">
-            {product?.description?.map((el) => (
+            {product?.description?.length > 1 && product?.description?.map((el) => (
               <li className="leading-6" key={el}>
                 {el}
               </li>
             ))}
+            {product?.description?.length === 1 && <div className="text-sm" dangerouslySetInnerHTML = {{__html: DOMPurify.sanitize(product?.description[0]) }}></div>}
           </ul>
           <div className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
