@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { InputForm, PagiItem, Pagination } from "components";
+import React, { useCallback, useEffect, useState } from "react";
+import { CustomizeVarriants, InputForm, PagiItem, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { apiGetProducts } from "apis/product";
+import { apiGetProducts, apiDeleteProduct } from "apis/product";
 import moment from "moment";
 import {
   useSearchParams,
@@ -10,17 +10,26 @@ import {
   useLocation,
 } from "react-router-dom";
 import useDebounce from "hooks/useDebounce";
+import UpdateProduct from "./UpdateProduct";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import { BiEdit, BiCustomize } from "react-icons/bi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 const ManageProducts = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [params] = useSearchParams();
   const [products, setProducts] = useState(null);
   const [counts, setCounts] = useState(0);
+  const [editProduct, setEditProduct] = useState(null);
+  const [update, setUpdate] = useState(false);
+  const [customizeVarriant, setCustomizeVarriant] = useState(null);
+  const render = useCallback(() => {
+    setUpdate(!update);
+  });
   const {
     register,
     formState: { errors },
-    handleSubmit,
-    reset,
     watch,
   } = useForm();
 
@@ -49,13 +58,48 @@ const ManageProducts = () => {
   useEffect(() => {
     const searchParams = Object.fromEntries([...params]);
     fetchProducts(searchParams);
-  }, [params]);
+  }, [params, update]);
+
+  const handleDeleteProduct = (pid) => {
+    Swal.fire({
+      title: "Are you sure",
+      text: "Are you sure you want to delete",
+      icon: "warning",
+      showCancelButton: true,
+    }).then(async (rs) => {
+      if (rs.isConfirmed) {
+        const response = await apiDeleteProduct(pid);
+        if (response.success) toast.success(response.mes);
+        else toast.error(response.mes);
+        render();
+      }
+    });
+  };
 
   return (
-    <div className="w-full className='text-center'  flex flex-col gap-4 relative">
+    <div className="w-full flex flex-col gap-4 relative">
+      {editProduct && (
+        <div className="absolute inset-0 bg-gray-100 min-h-screen z-50">
+          <UpdateProduct
+            editProduct={editProduct}
+            render={render}
+            setEditProduct={setEditProduct}
+          />
+        </div>
+      )}
+
+      {customizeVarriant && (
+        <div className="absolute inset-0 bg-gray-100 min-h-screen z-50">
+          <CustomizeVarriants
+            customizeVarriant={customizeVarriant}
+            render={render}
+            setCustomizeVarriant={setCustomizeVarriant}
+          />
+        </div>
+      )}
       <div className="h-[69px] w-full"></div>
       <div className="p-4 border-b w-full bg-gray-100 flex justify-between items-center fixed top-0">
-        <h1 className="text-3xl font-bold tracking-tight">Manage Products</h1>
+        <h1 className="text-3xl font-bold tracking-tight">MANAGE PRODUCTS</h1>
       </div>
 
       <div className="flex justify-end items-center px-4">
@@ -83,6 +127,7 @@ const ManageProducts = () => {
             <th className="text-center py-2">Color</th>
             <th className="text-center py-2">Ratings</th>
             <th className="text-center py-2">UpdatedAt</th>
+            <th className="text-center py-2">Actions</th>
           </tr>
         </thead>
 
@@ -112,6 +157,26 @@ const ManageProducts = () => {
               <td className="text-center py-2">{el.totalRatings}</td>
               <td className="text-center py-2">
                 {moment(el.createdAt).format("DD/MM/YYYY")}
+              </td>
+              <td className="text-center py-2">
+                <span
+                  onClick={() => setEditProduct(el)}
+                  className="text-orange-600 hover:underline cursor-pointer px-1 inline-block"
+                >
+                  <BiEdit size={20} />
+                </span>
+                <span
+                  onClick={() => handleDeleteProduct(el._id)}
+                  className="text-red-600 hover:underline cursor-pointer px-1 inline-block"
+                >
+                  <RiDeleteBin6Line size={20} />
+                </span>
+                <span
+                  onClick={() => setCustomizeVarriant(el)}
+                  className="text-blue-600 hover:underline cursor-pointer px-1 inline-block"
+                >
+                  <BiCustomize size={20} />
+                </span>
               </td>
             </tr>
           ))}
