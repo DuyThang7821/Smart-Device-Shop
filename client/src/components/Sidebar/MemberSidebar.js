@@ -1,28 +1,30 @@
 import React, { memo, Fragment, useState } from "react";
-import logo from "assets/logo.png";
-import { adminSidebar } from "ultils/contants";
+import avatar from "assets/avatarDefault.jpg";
+import { adminSidebar, memberSidebar } from "ultils/contants";
 import { NavLink, Link } from "react-router-dom";
 import clsx from "clsx";
 import { AiOutlineCaretDown, AiOutlineCaretLeft, AiOutlineCaretRight } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 const activeStyle =
   "px-4 py-2 flex items-center gap-2 bg-blue-600 text-gray-100";
 const notActiveStyle = "px-4 py-2 flex items-center  gap-2 hover:bg-blue-100";
 
-const AdminSidebar = () => {
+const MemberSidebar = () => {
   const [actived, setActived] = useState([]);
+  const {current} = useSelector(state => state.user)
   const handleShowTabs = (tabID) =>{
     if(actived.some(el => el === tabID)) setActived(prev => prev.filter(el => el !== tabID))
     else setActived(prev => [...prev, tabID])
   }
   return (
-    <div className="bg-white h-full py-4">
-      <Link to={'/'} className="flex flex-col justify-center p-4 items-center gap-2">
-        <img src={logo} alt="logo" className="w-[200px] object-contain" />
-        <small className="text-black font-semibold">Admin workspace</small>
-      </Link>
+    <div className="bg-white h-full py-4 w-[280px] flex-none">
+      <div className="w-full flex flex-col items-center justify-center py-4">
+        <img src={current?.avatar || avatar} alt="logo" className="w-16 h-16 object-cover" />
+        <small className="">{`${current?.lastname} ${current.firstname}`}</small>
+      </div>
       <div className="text-black">
-        {adminSidebar?.map((el) => (
+        {memberSidebar?.map((el) => (
           <Fragment key={el.id}>
             {el.type === "SINGLE" && (
               <NavLink
@@ -74,4 +76,4 @@ const AdminSidebar = () => {
     </div>
   );
 };
-export default memo(AdminSidebar);
+export default memo(MemberSidebar);

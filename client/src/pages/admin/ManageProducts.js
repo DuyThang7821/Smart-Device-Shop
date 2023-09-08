@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { CustomizeVarriants, InputForm, PagiItem, Pagination } from "components";
 import { useForm } from "react-hook-form";
-import { apiGetProducts, apiDeleteProduct } from "apis/product";
+import { apiGetProducts, apiDeleteProduct, apiAddVarriant } from "apis/product";
 import moment from "moment";
 import {
   useSearchParams,
@@ -126,6 +126,7 @@ const ManageProducts = () => {
             <th className="text-center py-2">Sold</th>
             <th className="text-center py-2">Color</th>
             <th className="text-center py-2">Ratings</th>
+            <th className="text-center py-2">Varriants</th>
             <th className="text-center py-2">UpdatedAt</th>
             <th className="text-center py-2">Actions</th>
           </tr>
@@ -155,6 +156,7 @@ const ManageProducts = () => {
               <td className="text-center py-2">{el.sold}</td>
               <td className="text-center py-2">{el.color}</td>
               <td className="text-center py-2">{el.totalRatings}</td>
+              <td className="text-center py-2">{el?.varriant?.length || 0}</td>
               <td className="text-center py-2">
                 {moment(el.createdAt).format("DD/MM/YYYY")}
               </td>

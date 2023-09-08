@@ -252,6 +252,41 @@ export const adminSidebar = [
   },
 ];
 
+
+export const memberSidebar = [
+  {
+    id: 1,
+    type: "SINGLE",
+    text: "Personal",
+    path: `/${path.MEMBER}/${path.PERSONAL}`,
+    icon: <AiOutlineDashboard size={20} />,
+  },
+
+  {
+    id: 2,
+    type: "SINGLE",
+    text: "My cart",
+    path: `/${path.MEMBER}/${path.MY_CART}`,
+    icon: <MdGroups size={20} />,
+  },
+
+  {
+    id: 4,
+    type: "SINGLE",
+    text: "Buy histories",
+    path: `/${path.MEMBER}/${path.HISTORY}`,
+    icon: <RiBillLine size={20} />,
+  },
+
+  {
+    id: 4,
+    type: "SINGLE",
+    text: "Wishlist",
+    path: `/${path.MEMBER}/${path.WISHLIST}`,
+    icon: <RiBillLine size={20} />,
+  },
+];
+
 export const roles = [
   {
     code: 1945,

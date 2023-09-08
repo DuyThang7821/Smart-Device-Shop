@@ -48,7 +48,11 @@ const CustomizeVarriants = ({
       dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
       const response = await apiAddVarriant(formData, customizeVarriant._id);
       dispatch(showModal({ isShowModal: false, modalChildren: null }));
-      console.log(response);
+      if(response.success){
+        toast.success(response.mes)
+        reset()
+        setPreview({thumb: '', images: []})
+      } else toast.error(response.mes)
     }
   };
   const handlePreviewThumb = async (file) => {
@@ -88,7 +92,7 @@ const CustomizeVarriants = ({
           className="text-main hover:underline cursor-pointer"
           onClick={() => setCustomizeVarriant(null)}
         >
-          Cancel
+          Back
         </span>
       </div>
       <form
