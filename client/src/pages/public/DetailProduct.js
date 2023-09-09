@@ -27,21 +27,34 @@ const settings = {
   slidesToShow: 3,
   slidesToScroll: 1,
 };
-const DetailProduct = () => {
+const DetailProduct = ({ isQuickView, data }) => {
   const [currentImage, setCurrentImage] = useState(null);
-  const { pid, category } = useParams();
+  const params= useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState(null);
   const [update, setUpdate] = useState(false);
   const [varriant, setVarriant] = useState(null);
+  const [pid, setPid] = useState(null);
+  const [category, setCategory] = useState(null);
   const [currentProduct, setCurrentProduct] = useState({
     title: "",
     thumb: "",
     images: [],
     price: "",
-    color: ''
+    color: "",
   });
+
+  useEffect(()=>{
+    if(data) {
+      setPid(data.pid);
+      setCategory(data.category);
+    }
+    else if (params && params.pid) {
+      setPid(params.pid);
+      setCategory(params.category);
+    }
+  },[data, params])
   const fetchProductData = async () => {
     const response = await apiGetProduct(pid);
     if (response?.success) {
@@ -103,20 +116,22 @@ const DetailProduct = () => {
     setCurrentImage(el);
   };
   return (
-    <div className="w-full">
-      <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
-        <div className="w-main">
-          <h3 className="font-semibold">
-            {currentProduct?.title || product?.title}
-          </h3>
-          <Breadcrumb
-            title={currentProduct?.title || product?.title}
-            category={category}
-          />
+    <div  className={clsx('w-full')}>
+      {!isQuickView && (
+        <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
+          <div className="w-main">
+            <h3 className="font-semibold">
+              {currentProduct?.title || product?.title}
+            </h3>
+            <Breadcrumb
+              title={currentProduct?.title || product?.title}
+              category={category}
+            />
+          </div>
         </div>
-      </div>
-      <div className="w-main m-auto mt-4 flex">
-        <div className="flex flex-col gap-4 w-2/5">
+      )}
+      <div onClick={e => e.stopPropagation()} className={clsx("bg-white m-auto mt-4 flex", isQuickView ? 'max-w-[900px] gap-16 p-8 max-h-[80vh] overflow-y-auto rounded-md' : 'w-main')}>
+        <div className={clsx("flex flex-col gap-4 w-2/5", isQuickView && 'w-1/2')}>
           <div className="h-[458px] w-[458px] border flex items-center overflow-hidden">
             <ReactImageMagnify
               {...{
@@ -163,7 +178,7 @@ const DetailProduct = () => {
           </div>
         </div>
 
-        <div className="w-2/5 pr-[24px] flex flex-col gap-4">
+        <div className={clsx("w-2/5 pr-[24px] flex flex-col gap-4", isQuickView && 'w-1/2')}>
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-[30px]">{`${formatMoney(
               formatPrice(currentProduct?.price || product?.price)
@@ -246,34 +261,42 @@ const DetailProduct = () => {
           </div>
         </div>
 
-        <div className="w-1/5">
-          {productExtraInfomation.map((el) => (
-            <ProductExtraInfoItem
-              key={el.id}
-              title={el.title}
-              icon={el.icon}
-              sub={el.sub}
-            />
-          ))}
+        {!isQuickView && (
+          <div className="w-1/5">
+            {productExtraInfomation.map((el) => (
+              <ProductExtraInfoItem
+                key={el.id}
+                title={el.title}
+                icon={el.icon}
+                sub={el.sub}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      {!isQuickView && (
+        <div className="w-main m-auto mt-8">
+          <ProductInfomation
+            totalRatings={product?.totalRatings}
+            ratings={product?.ratings}
+            nameProduct={product?.title}
+            pid={product?._id}
+            rerender={rerender}
+          />
         </div>
-      </div>
-      <div className="w-main m-auto mt-8">
-        <ProductInfomation
-          totalRatings={product?.totalRatings}
-          ratings={product?.ratings}
-          nameProduct={product?.title}
-          pid={product?._id}
-          rerender={rerender}
-        />
-      </div>
+      )}
 
-      <div className="w-main m-auto mt-8">
-        <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">
-          OTHER CUSTOMER ALSO LIKED
-        </h3>
-        <CustomSlider normal={true} products={relatedProducts} />
-      </div>
-      <div className="h-[200px] w-full"></div>
+      {!isQuickView && (
+        <>
+          <div className="w-main m-auto mt-8">
+            <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">
+              OTHER CUSTOMER ALSO LIKED
+            </h3>
+            <CustomSlider normal={true} products={relatedProducts} />
+          </div>
+          <div className="h-[200px] w-full"></div>
+        </>
+      )}
     </div>
   );
 };
