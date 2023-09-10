@@ -37,9 +37,9 @@ const TopHeader = () =>{
                 onClick={()=> dispatch(logout())}
                 className="cursor-pointer hover:rounded-full hover:bg-gray-200 hover:text-main p-2"><AiOutlineLogout size={18} /></span>
             </div> 
-            :<Link className="hover:text-gray-800" to={`/${path.LOGIN}`}>Đăng nhập hoặc tạo tài khoản</Link>}
+            :<Link className="hover:text-yellow-300" to={`/${path.LOGIN}`}>Đăng nhập hoặc tạo tài khoản</Link>}
             </div>
         </div>
     )
 }
-export default memo(TopHeader) 
+export default TopHeader

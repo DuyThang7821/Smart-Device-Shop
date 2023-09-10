@@ -12,9 +12,9 @@ import { toast } from "react-toastify";
 import path from "ultils/path";
 
 const Cart = ({ dispatch, navigate }) => {
-  const { current } = useSelector((state) => state.user);
-  const removeCart = async (pid) => {
-    const response = await apiRemoveCart(pid);
+  const { currentCart } = useSelector((state) => state.user);
+  const removeCart = async (pid, color) => {
+    const response = await apiRemoveCart(pid, color);
     if (response.success) {
       dispatch(getCurrent());
     } else toast.error(response.mes);
@@ -34,30 +34,31 @@ const Cart = ({ dispatch, navigate }) => {
         </span>
       </header>
       <section className="row-span-7 flex flex-col gap-3 h-full max-h-full overflow-y-auto py-3">
-        {!current?.cart && (
+        {!currentCart && (
           <span className="text-xs italic">Your cart is empty</span>
         )}
-        {current?.cart &&
-          current?.cart?.map((el) => (
+        {currentCart &&
+          currentCart?.map((el) => (
             <div key={el._id} className="flex justify-between items-center ">
               <div className="flex gap-2">
                 <img
-                  src={el.product?.thumb}
+                  src={el.thumbnail}
                   alt="thumb"
                   className="w-16 h-16 object-cover"
                 />
                 <div className="flex flex-col gap-1">
                   <span className="font-bold text-sm text-yellow-300">
-                    {el.product?.title}
+                    {el.title}
                   </span>
                   <span className="text-[10px]">{el.color}</span>
+                  <span className="text-[10px]">{`Quantity: ${el.quantity}`}</span>
                   <span className="text-sm">
-                    {formatMoney(el.product?.price) + " VND"}
+                    {formatMoney(el.price) + " VND"}
                   </span>
                 </div>
               </div>
               <span
-                onClick={() => removeCart(el?.product?._id)}
+                onClick={() => removeCart(el?.product?._id, el.color)}
                 className="h-8 w-8  flex items-center justify-center rounded-full hover:bg-red-500 cursor-pointer"
               >
                 <ImBin size={20} />
@@ -70,8 +71,8 @@ const Cart = ({ dispatch, navigate }) => {
           <span>Subtotal:</span>
           <span>
             {formatMoney(
-              current?.cart?.reduce(
-                (sum, el) => sum + Number(el.product?.price),
+              currentCart?.reduce(
+                (sum, el) => sum + Number(el?.price) * el.quantity,
                 0
               )
             ) + " VND"}

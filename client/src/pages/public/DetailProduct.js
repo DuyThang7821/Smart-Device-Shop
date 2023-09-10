@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { apiGetProduct, apiGetProducts } from "../../apis";
+import { createSearchParams, useParams } from "react-router-dom";
+import { apiGetProduct, apiGetProducts, apiUpdateCart } from "../../apis";
 import {
   Breadcrumb,
   Button,
@@ -20,6 +20,12 @@ import {
 } from "../../ultils/helpers";
 import DOMPurify from "dompurify";
 import clsx from "clsx";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import path from "ultils/path";
+import WithBaseComponent from "hocs/withBaseComponent";
+import { getCurrent } from "store/user/asyncActions";
 const settings = {
   dots: false,
   infinite: false,
@@ -27,9 +33,10 @@ const settings = {
   slidesToShow: 3,
   slidesToScroll: 1,
 };
-const DetailProduct = ({ isQuickView, data }) => {
+const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
   const [currentImage, setCurrentImage] = useState(null);
   const params= useParams();
+  const {current} = useSelector(state => state.user)
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState(null);
@@ -71,6 +78,14 @@ const DetailProduct = ({ isQuickView, data }) => {
         price: product?.varriant?.find((el) => el.sku === varriant)?.price,
         thumb: product?.varriant?.find((el) => el.sku === varriant)?.thumb,
       });
+    } else {
+      setCurrentProduct({
+        title: product?.title,
+        color: product?.color,
+        images: product?.images || [],
+        price: product?.price,
+        thumb: product?.thumb,
+      })
     }
   });
   const fetchProducts = async () => {
@@ -115,6 +130,33 @@ const DetailProduct = ({ isQuickView, data }) => {
     e.stopPropagation();
     setCurrentImage(el);
   };
+  const handleAddToCart = async () =>{
+    if(!current) return Swal.fire({
+      title: 'Almost...',
+      text: 'Please login first',
+      icon: 'info',
+      cancelButtonText: 'Not now!',
+      showCancelButton: true,
+      confirmButtonText: 'Go login page'
+    }).then(async(rs) => {
+        if(rs.isConfirmed) navigate({
+          pathname: `/${path.LOGIN}`,
+          search: createSearchParams({redirect: location.pathname}).toString()
+        })
+    })
+    const response = await apiUpdateCart({
+      pid , color: currentProduct.color|| product?.color,
+       quantity, 
+       price: currentProduct?.price || product?.price,
+       thumbnail: currentProduct?.thumb || product?.thumb,
+       title: currentProduct?.title || product?.title,
+       })
+    if(response.success) {
+      toast.success(response.mes)
+      dispatch(getCurrent())
+    }
+    else toast.error(response.mes)
+  }
   return (
     <div  className={clsx('w-full')}>
       {!isQuickView && (
@@ -229,6 +271,7 @@ const DetailProduct = ({ isQuickView, data }) => {
               </div>
               {product?.varriant?.map((el) => (
                 <div
+                key={el.sku}
                   onClick={() => setVarriant(el.sku)}
                   className={clsx(
                     "flex items-center gap-2 p-2 border cursor-pointer",
@@ -257,7 +300,7 @@ const DetailProduct = ({ isQuickView, data }) => {
                 handleChangeQuantity={handleChangeQuantity}
               />
             </div>
-            <Button fw>Add to cart</Button>
+            <Button handleOnClick={handleAddToCart} fw>Add to cart</Button>
           </div>
         </div>
 
@@ -300,4 +343,4 @@ const DetailProduct = ({ isQuickView, data }) => {
     </div>
   );
 };
-export default DetailProduct;
+export default WithBaseComponent(DetailProduct);

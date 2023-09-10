@@ -3,7 +3,7 @@ import clsx from "clsx";
 const InputField = ({value, setValue, nameKey, type, invalidFields, setInvalidFields,style, fullWidth, placeholder, isHideLabel}) =>{
 
     return(
-        <div className={clsx('flex flex-col relative mb-3', fullWidth && 'w-full')}>
+        <div className={clsx('flex flex-col relative mb-3 w-full', fullWidth && 'w-full')}>
            {!isHideLabel && value?.trim() !== '' &&  <label className="text-[12px] animate-slide-top-sm absolute top-[5px] left-[2px] block bg-white px-2" htmlFor={nameKey}>{nameKey?.slice(0, 1).toUpperCase() + nameKey?.slice(1)}</label>}
             <input type ={type || 'text'}
             className={clsx('px-4 py-3 border-[2px] rounded-sm border w-full mt-4 placeholder:text-md placeholder:italic outline-none',style)}
