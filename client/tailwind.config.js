@@ -13,6 +13,10 @@ module.exports = {
         main: "#ee3131",
         overlay: "rgba(0,0,0,0.3)",
       },
+      gridTemplateRows: {
+        '10': 'repeat(10, minmax(0, 1fr)',
+        'layout' : '200px minmax(900px, 1fr) 100px',
+      },
       colors: {
         main: "#ee3131",
       },
