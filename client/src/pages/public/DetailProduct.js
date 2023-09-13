@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createSearchParams, useParams } from "react-router-dom";
 import { apiGetProduct, apiGetProducts, apiUpdateCart } from "../../apis";
 import {
@@ -35,6 +35,7 @@ const settings = {
 };
 const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
   const [currentImage, setCurrentImage] = useState(null);
+  const titleRef = useRef()
   const params= useParams();
   const {current} = useSelector(state => state.user)
   const [product, setProduct] = useState(null);
@@ -87,7 +88,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
         thumb: product?.thumb,
       })
     }
-  });
+  },[varriant, product]);
   const fetchProducts = async () => {
     const response = await apiGetProducts({ category });
     if (response?.success) setRelatedProducts(response?.products);
@@ -98,6 +99,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
       fetchProducts();
     }
     window.scroll(0, 0);
+    titleRef.current.scrollIntoView({block: 'center'})
   }, [pid]);
 
   useEffect(() => {
@@ -161,7 +163,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
     <div  className={clsx('w-full')}>
       {!isQuickView && (
         <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
-          <div className="w-main">
+          <div ref={titleRef} className="w-main">
             <h3 className="font-semibold">
               {currentProduct?.title || product?.title}
             </h3>
