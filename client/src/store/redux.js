@@ -11,7 +11,7 @@ const commonConfig = {
 }
 const userConfig = {
   ...commonConfig,
-  whitelist: ['isLoggedIn', 'token', 'current']
+  whitelist: ['isLoggedIn', 'token', 'current', 'currentCart']
 }
 export const store = configureStore({
   reducer: {

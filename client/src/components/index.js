@@ -34,4 +34,5 @@ export {default as Select} from './inputs/Select';
 export {default as MarkdownEditor} from './inputs/MarkdownEditor';
 export {default as CustomizeVarriants} from './products/CustomizeVarriants';
 export {default as MemberSidebar} from './Sidebar/MemberSidebar'
-export {default as Cart} from './products/Cart'
+export {default as Cart} from './products/Cart';
+export {default as Paypal} from './common/Paypal'
