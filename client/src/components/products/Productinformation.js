@@ -33,9 +33,9 @@ const ProductInfomation = ({
   const handleVoteNow = () => {
     if (!isLoggedIn) {
       Swal.fire({
-        text: "Login to vote",
-        cancelButtonText: "cancel",
-        confirmButtonText: "Go login",
+        text: "Đăng nhập để đánh giá",
+        cancelButtonText: "Hủy",
+        confirmButtonText: "Đi đến đăng nhập",
         title: "Oops!",
         showCancelButton: true,
       }).then((rs) => {
@@ -88,7 +88,7 @@ const ProductInfomation = ({
                 <span key={index}>{el}</span>
               ))}
             </span>
-            <span className="text-sm">{`${ratings?.length} reviewers and commentors`}</span>
+            <span className="text-sm">{`${ratings?.length} Đánh giá và phản hồi`}</span>
           </div>
 
           <div className="flex-6  p-4 gap-2 flex flex-col">
@@ -107,8 +107,8 @@ const ProductInfomation = ({
           </div>
         </div>
         <div className="p-4 flex items-center justify-center text-sm flex-col gap-2">
-          <span>Do you review this product?</span>
-          <Button handleOnClick={handleVoteNow}>Vote now !</Button>
+          <span>Bạn có muốn đánh giá sản phẩm này không ?</span>
+          <Button handleOnClick={handleVoteNow}>Gữi đánh giá</Button>
         </div>
         <div className="flex flex-col gap-4">
           {ratings?.map((el) => (

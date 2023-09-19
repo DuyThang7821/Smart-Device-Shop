@@ -75,7 +75,7 @@ const ManageUser = () => {
   return (
     <div className={clsx("w-full", editElm && 'pl-16')}>
       <h1 className="h-[75px] flex justify-between items-center text-3xl font-bold px-4 border-b">
-        <span>MANAGE USERS</span>
+        <span>QUẢN LÍ TÀI KHOẢN NGƯỜI DÙNG</span>
       </h1>
       <div className="w-full p-4">
         <div className="flex justify-end py-4">
@@ -84,24 +84,24 @@ const ManageUser = () => {
             value={queries.q}
             setValue={setQueries}
             style={"w500"}
-            placeholder="Search name or mail, user..."
+            placeholder="Tìm kiếm tên hoặc email..."
             isHideLabel
           />
         </div>
         <form onSubmit={handleSubmit(handleUpdate)}>
-          {editElm && <Button type="submit">Update</Button>}
+          {editElm && <Button type="submit">Cập nhật</Button>}
           <table className="table-auto mb-6 text-left w-full">
             <thead className="font-bold bg-gray-700 text-[13px]  text-white">
               <tr className="border border-gray-500">
                 <th className="px-4 py-2">ID</th>
-                <th className="px-4 py-2">Email address</th>
-                <th className="px-4 py-2">Firstname</th>
-                <th className="px-4 py-2">Lastname</th>
-                <th className="px-4 py-2">Role</th>
-                <th className="px-4 py-2">Phone</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">CreatedAt</th>
-                <th className="px-4 py-2">Actions</th>
+                <th className="px-4 py-2">Địa chỉ email</th>
+                <th className="px-4 py-2">Tên</th>
+                <th className="px-4 py-2">Họ và tên đệm</th>
+                <th className="px-4 py-2">Phân quyền</th>
+                <th className="px-4 py-2">Số điện thoại</th>
+                <th className="px-4 py-2">Trạng thái</th>
+                <th className="px-4 py-2">Đã tạo</th>
+                <th className="px-4 py-2">Chỉnh sửa</th>
               </tr>
             </thead>
             <tbody>
@@ -117,10 +117,10 @@ const ManageUser = () => {
                         errors={errors}
                         id={"email"}
                         validate={{
-                          required: "Require field",
+                          required: "Trường này không được để trống",
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: "Invalid email address",
+                            message: "Địa chỉ email không hợp lệ",
                           },
                         }}
                       />
@@ -136,7 +136,7 @@ const ManageUser = () => {
                         fullWidth
                         errors={errors}
                         id={"firstname"}
-                        validate={{ required: "Require field" }}
+                        validate={{ required: "Trường này không được để trống" }}
                       />
                     ) : (
                       <span>{el.firstname}</span>
@@ -150,7 +150,7 @@ const ManageUser = () => {
                         register={register}
                         errors={errors}
                         id={"lastname"}
-                        validate={{ required: "Require field" }}
+                        validate={{ required: "Trường này không được để trống" }}
                       />
                     ) : (
                       <span>{el.lastname}</span>
@@ -164,7 +164,7 @@ const ManageUser = () => {
                       register={register}
                       errors={errors}
                       id={"role"}
-                      validate={{ required: "Require field" }} 
+                      validate={{ required: "Trường này không được để trống" }} 
                       options={roles} />
                     ) : (
                       <span>
@@ -182,10 +182,10 @@ const ManageUser = () => {
                         errors={errors}
                         id={"mobile"}
                         validate={{
-                          required: "Require field",
+                          required: "Trường này không được để trống",
                           pattern: {
                             value: /^[62|0]+\d{9}/gi,
-                            message: "Invalid phone number",
+                            message: "Số điện thoại không hợp lệ",
                           },
                         }}
                       />
@@ -202,7 +202,7 @@ const ManageUser = () => {
                       register={register}
                       errors={errors}
                       id={'isBlocked'}
-                      validate={{ required: "Require field" }}
+                      validate={{ required: "Trường này không được để trống" }}
                       options={blockStatus}  />
                     ) : (
                       <span>{el.isBlocked ? "Blocked" : "Active"}</span>
@@ -217,18 +217,18 @@ const ManageUser = () => {
                         onClick={() => setEditElm(null)}
                         className="px-2 text-orange-500 hover:underline cursor-pointer"
                       >
-                        Back
+                        Hủy
                       </span>
                     ) : (
                       <span
                         onClick={() => setEditElm(el)}
                         className="px-2 text-orange-500 hover:underline cursor-pointer"
                       >
-                        Edit
+                        Sửa
                       </span>
                     )}
                     <span onClick={() => handleDeleteUser(el._id)} className="px-2 text-red-700 hover:underline cursor-pointer">
-                      Delete
+                      Xóa
                     </span>
                   </td>
                 </tr>

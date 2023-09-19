@@ -101,78 +101,78 @@ const UpdateProduct = ({editProduct, render, setEditProduct}) => {
     <div className="w-full flex flex-col gap-4 relative">
       <div className="h-[69px] w-full"></div>
       <div className="p-4 border-b  bg-gray-100 flex justify-between right-0 left-[327px] items-center fixed top-0">
-        <h1 className="text-3xl font-bold tracking-tight">update products</h1>
-        <span className="text-main hover:underline cursor-pointer" onClick={() => setEditProduct(null)}>Cancel</span>
+        <h1 className="text-3xl font-bold tracking-tight">CHỈNH SỬA SẢN PHẨM</h1>
+        <span className="text-main hover:underline cursor-pointer" onClick={() => setEditProduct(null)}>Hủy</span>
       </div>
       <div className="p-4 ">
         <form onSubmit={handleSubmit(handleUpdateProduct)}>
           <InputForm
-            label="Name product"
+            label="Tên sản phẩm"
             register={register}
             errors={errors}
             id="title"
             validate={{
-              required: "Need fill this field",
+              required: "Trường này không được để trống",
             }}
             fullWidth
-            placeholder="Name of new product"
+            placeholder="Tên của sản phẩm"
           />
           <div className="w-full my-6 flex gap-4">
             <InputForm
-              label="Price"
+              label="Giá tiền"
               register={register}
               errors={errors}
               id="price"
               validate={{
-                required: "Need fill this field",
+                required: "Trường này không được để trống",
               }}
               style="flex-auto"
-              placeholder="Price of new product"
+              placeholder="Giá tiền của sản phẩm"
               type="number"
             />
 
             <InputForm
-              label="Quantity"
+              label="Số lượng"
               register={register}
               errors={errors}
               id="quantity"
               validate={{
-                required: "Need fill this field",
+                required: "Trường này không được để trống",
               }}
               style="flex-auto"
-              placeholder="Quantity of new product"
+              placeholder="Số lượng của sản phẩm"
               type="number"
             />
 
             <InputForm
-              label="Color"
+              label="Màu sắc"
               register={register}
               errors={errors}
               id="color"
               validate={{
-                required: "Need fill this field",
+                required: "Trường này không được để trống",
               }}
               style="flex-auto"
-              placeholder="color of new product"
+              placeholder="Màu sắc của sản phẩm"
             />
           </div>
           <div className="w-full my-6 flex gap-4">
             <Select
-              label="Category"
+              label="Danh mục"
               options={categories?.map(el => ({
                 code: el.title,
                 value: el.title,
               }))}
               register={register}
               id="category"
-              validate={{ required: "Need fill this field" }}
+              validate={{ required: "Trường này không được để trống" }}
               style="flex-auto"
               errors={errors}
               fullWidth
             />
 
             <Select
-              label="Brand (Optional)"
+              label="Thương hiệu"
               options={categories
                 ?.find(el => el.title === watch("category"))
                 ?.brand?.map(el => ({ code: el.toLowerCase(), value:el }))}
@@ -186,7 +186,7 @@ const UpdateProduct = ({editProduct, render, setEditProduct}) => {
           <MarkdownEditor
             name="description"
             changeValue={changeValue}
-            label="Description"
+            label="Mô tả sản phẩm :"
             invalidFields={invalidFields}
             setInvalidFields={setInvalidFields}
             value={payload.description}
@@ -195,7 +195,7 @@ const UpdateProduct = ({editProduct, render, setEditProduct}) => {
 
           <div className="flex flex-col gap-2 mt-8">
             <label className="font-semibold" htmlFor="thumb">
-              Upload thumb
+              Tải ảnh lên
             </label>
             <input
               type="file"
@@ -219,7 +219,7 @@ const UpdateProduct = ({editProduct, render, setEditProduct}) => {
           )}
           <div className="flex flex-col gap-2 mt-8">
             <label className="font-semibold" htmlFor="products">
-              Upload image of product
+              Tải ảnh sản phẩm
             </label>
             <input
               type="file"
@@ -253,7 +253,7 @@ const UpdateProduct = ({editProduct, render, setEditProduct}) => {
             </div>
           )}
           <div className="my-6">
-            <Button type="submit">Update product</Button>
+            <Button type="submit">Cập nhật sản phẩm</Button>
           </div>
         </form>
       </div>

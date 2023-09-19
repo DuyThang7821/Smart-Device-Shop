@@ -19,7 +19,7 @@ const AdminSidebar = () => {
     <div className="bg-white h-full py-4">
       <Link to={'/'} className="flex flex-col justify-center p-4 items-center gap-2">
         <img src={logo} alt="logo" className="w-[200px] object-contain" />
-        <small className="text-black font-semibold">Admin workspace</small>
+        <small className="text-black font-semibold">Trang quản lí</small>
       </Link>
       <div className="text-black">
         {adminSidebar?.map((el) => (

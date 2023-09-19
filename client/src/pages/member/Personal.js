@@ -44,78 +44,78 @@ const Personal = () => {
   return (
     <div className="w-full relative px-4">
       <header className="text-3xl font-bold py-4 border-b border-b-blue-800">
-        Personal
+        Trang cá nhân
       </header>
       <form
         onSubmit={handleSubmit(handleUpdateInfor)}
         className="w-3/5 mx-auto py-8 flex flex-col gap-4"
       >
         <InputForm
-          label="Firstname"
+          label="Tên của bạn"
           register={register}
           errors={errors}
           id="firstname"
           validate={{
-            required: "Need fill this field",
+            required: "Trường này không được để trống",
           }}
         />
 
         <InputForm
-          label="Lastname"
+          label="Họ và tên đệm"
           register={register}
           errors={errors}
           id="lastname"
           validate={{
-            required: "Need fill this field",
+            required: "Trường này không được để trống",
           }}
         />
 
         <InputForm
-          label="Email address"
+          label="Địa chỉ email"
           register={register}
           errors={errors}
           id="email"
           validate={{
-            required: "Need fill this field",
+            required: "Trường này không được để trống",
             pattern: {
               value:
                 /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+@[a-zA-Z\d-]+\.(com|vn)$/,
-              message: "Email invalid",
+              message: "Địa chỉ email không hợp lệ",
             },
           }}
         />
 
         <InputForm
-          label="Phone"
+          label="Số điện thoại"
           register={register}
           errors={errors}
           id="mobile"
           validate={{
-            required: "Need fill this field",
+            required: "Trường này không được để trống",
             pattern: {
               value: /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
-              message: "Phone in valid",
+              message: "Số điện thoại không hợp lệ",
             },
           }}
         />
 
         <div className="flex items-center gap-2">
-          <span className="font-medium">Account status:</span>
+          <span className="font-medium">Trạng thái tài khoản:</span>
           <span>{current?.isBlocked ? "Blocked" : "Actived"}</span>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="font-medium">Role:</span>
+          <span className="font-medium">Phân quyền:</span>
           <span>{+current?.role === 1945 ? "Admin" : "User"}</span>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="font-medium">CreatedAt:</span>
+          <span className="font-medium">Đã tạo:</span>
           <span>{moment(current?.createdAt).fromNow()}</span>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="font-medium">Profile image</span>
+          <span className="font-medium">Ảnh đại diện</span>
           <label htmlFor="file">
             <img
               src={current?.avatar || avatar}
@@ -127,7 +127,7 @@ const Personal = () => {
         </div>
         {isDirty && (
           <div className="w-full flex justify-end">
-            <Button type="submit">Update Information </Button>
+            <Button type="submit">Cập nhật thông tin </Button>
           </div>
         )}
       </form>

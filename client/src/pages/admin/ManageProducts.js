@@ -62,8 +62,8 @@ const ManageProducts = () => {
 
   const handleDeleteProduct = (pid) => {
     Swal.fire({
-      title: "Are you sure",
-      text: "Are you sure you want to delete",
+      title: "Xóa sản phẩm",
+      text: "Bạn muốn xóa sản phẩm này!",
       icon: "warning",
       showCancelButton: true,
     }).then(async (rs) => {
@@ -99,7 +99,7 @@ const ManageProducts = () => {
       )}
       <div className="h-[69px] w-full"></div>
       <div className="p-4 border-b w-full bg-gray-100 flex justify-between items-center fixed top-0">
-        <h1 className="text-3xl font-bold tracking-tight">MANAGE PRODUCTS</h1>
+        <h1 className="text-3xl font-bold tracking-tight">QUẢN LÍ SẢN PHẨM</h1>
       </div>
 
       <div className="flex justify-end items-center px-4">
@@ -109,7 +109,7 @@ const ManageProducts = () => {
             register={register}
             errors={errors}
             fullWidth
-            placeholder="Search Products by title, description..."
+            placeholder="Tìm kiếm sản phẩm bằng tên hoặc thương hiệu..."
           />
         </form>
       </div>
@@ -117,18 +117,18 @@ const ManageProducts = () => {
         <thead>
           <tr className=" className='text-center py-2' bg-sky-900 text-white border-white py-2">
             <th className="text-center py-2">ID</th>
-            <th className="text-center py-2">Thumb</th>
-            <th className="text-center py-2">Title</th>
-            <th className="text-center py-2">Brand</th>
-            <th className="text-center py-2">Category</th>
-            <th className="text-center py-2">Price</th>
-            <th className="text-center py-2">Quantity</th>
-            <th className="text-center py-2">Sold</th>
-            <th className="text-center py-2">Color</th>
-            <th className="text-center py-2">Ratings</th>
-            <th className="text-center py-2">Varriants</th>
-            <th className="text-center py-2">UpdatedAt</th>
-            <th className="text-center py-2">Actions</th>
+            <th className="text-center py-2">Ảnh</th>
+            <th className="text-center py-2">Tên sản phẩm</th>
+            <th className="text-center py-2">Thương hiệu</th>
+            <th className="text-center py-2">Danh mục</th>
+            <th className="text-center py-2">Giá tiền</th>
+            <th className="text-center py-2">Số lượng</th>
+            <th className="text-center py-2">Đã bán</th>
+            <th className="text-center py-2">Màu sắc</th>
+            <th className="text-center py-2">Đánh giá</th>
+            <th className="text-center py-2">Màu sản phẩm khác</th>
+            <th className="text-center py-2">Đã tạo</th>
+            <th className="text-center py-2">Chỉnh sửa</th>
           </tr>
         </thead>
 

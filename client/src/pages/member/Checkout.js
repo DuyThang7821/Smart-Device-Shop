@@ -13,14 +13,14 @@ const Checkout = () => {
         <img src={payment} alt="payment" className="h-[70%] object-contain" />
       </div>
       <div className="flex w-full flex-col justify-center items-center gap-6 col-span-6">
-        <h2 className="text-3xl mb-6 font-bold">Checkout your order</h2>
+        <h2 className="text-3xl mb-6 font-bold">THANH TOÁN ĐƠN HÀNG CỦA BẠN</h2>
 
         <table className="table-auto w-full">
             <thead>
                 <tr className="border bg-gray-200">
-                    <th className="text-left p-2">Product</th>
-                    <th className="text-center p-2">Quantity</th>
-                    <th className="text-right p-2">Price</th>
+                    <th className="text-left p-2">Sản phẩm</th>
+                    <th className="text-center p-2">Số lượng</th>
+                    <th className="text-right p-2">Giá tiền</th>
                 </tr>
             </thead>
 
@@ -36,7 +36,7 @@ const Checkout = () => {
         </table>
         
         <span className="flex items-center gap-8 text-sm">
-          <span>Subtotal: </span>
+          <span>Tổng tiền: </span>
           <span className="text-main font-bold text-2xl">{`${formatMoney(
             currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum, 0)
           )} VND`}</span>

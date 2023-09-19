@@ -35,36 +35,36 @@ const { RiTruckFill, BsShieldShaded, BsReplyFill, FaTty, AiFillGift } = icons;
 export const productExtraInfomation = [
   {
     id: 1,
-    title: "Guarantee",
-    sub: "Quality checked",
+    title: "Bảo đảm",
+    sub: "Đã kiểm tra chất lượng",
     icon: <BsShieldShaded />,
   },
 
   {
     id: 2,
-    title: "Free Shipping",
-    sub: "Free on All Products",
+    title: "Miễn phí vận chuyển",
+    sub: "Miễn phí trên các sản phẩm",
     icon: <RiTruckFill />,
   },
 
   {
     id: 3,
-    title: "Free Gift Cards",
-    sub: "Special Gift Cards",
+    title: "Thẻ quà tặng",
+    sub: "Miễn phí thẻ quà tặng",
     icon: <AiFillGift />,
   },
 
   {
     id: 4,
-    title: "Free Return",
-    sub: "Within 7 days",
+    title: "Hoàn trả miễn phí",
+    sub: "Trong vòng 7 ngày",
     icon: <BsReplyFill />,
   },
 
   {
     id: 5,
-    title: "Consultancy",
-    sub: "Lifetime 24/7/356",
+    title: "Tư vấn",
+    sub: "Hỗ trợ 24/7",
     icon: <FaTty />,
   },
 ];
@@ -72,7 +72,7 @@ export const productExtraInfomation = [
 export const productInfoTabs = [
   {
     id: 1,
-    name: "DESCRIPTION",
+    name: "MÔ TẢ",
     content: `Connections: USB 2.0, USB 3.0
         Controls: Onboard touchpad, Bluetooth controllers
         Hardware Platform: Android
@@ -86,8 +86,8 @@ export const productInfoTabs = [
 
   {
     id: 2,
-    name: "WARRANTY",
-    content: `WARRANTY INFORMATION
+    name: "BẢO ĐẢM",
+    content: `BẢO ĐẢM THÔNG TIN
         LIMITED WARRANTIES
         Limited Warranties are non-transferable. The following Limited Warranties are given to the original retail purchaser of the following Ashley Furniture Industries, Inc.Products:
         
@@ -100,8 +100,8 @@ export const productInfoTabs = [
 
   {
     id: 3,
-    name: "DELIVERY",
-    content: `PURCHASING & DELIVERY
+    name: "VẬN CHUYỂN",
+    content: `THU MUA VÀ VẬN CHUYỂN
         Before you make your purchase, it’s helpful to know the measurements of the area you plan to place the furniture. You should also measure any doorways and hallways through which the furniture will pass to get to its final destination.
         Picking up at the store
         Shopify Shop requires that all products are properly inspected BEFORE you take it home to insure there are no surprises. Our team is happy to open all packages and will assist in the inspection process. We will then reseal packages for safe transport. We encourage all customers to bring furniture pads or blankets to protect the items during transport as well as rope or tie downs. Shopify Shop will not be responsible for damage that occurs after leaving the store or during transit. It is the purchaser’s responsibility to make sure the correct items are picked up and in good condition.
@@ -113,8 +113,8 @@ export const productInfoTabs = [
 
   {
     id: 4,
-    name: "PAYMENT",
-    content: `PURCHASING & DELIVERY
+    name: "THANH TOÁN",
+    content: `
         Before you make your purchase, it’s helpful to know the measurements of the area you plan to place the furniture. You should also measure any doorways and hallways through which the furniture will pass to get to its final destination.
         Picking up at the store
         Shopify Shop requires that all products are properly inspected BEFORE you take it home to insure there are no surprises. Our team is happy to open all packages and will assist in the inspection process. We will then reseal packages for safe transport. We encourage all customers to bring furniture pads or blankets to protect the items during transport as well as rope or tie downs. Shopify Shop will not be responsible for damage that occurs after leaving the store or during transit. It is the purchaser’s responsibility to make sure the correct items are picked up and in good condition.
@@ -212,7 +212,7 @@ export const adminSidebar = [
   {
     id: 1,
     type: "SINGLE",
-    text: "Dashboard",
+    text: "Tổng quan",
     path: `/${path.ADMIN}/${path.DASHBOARD}`,
     icon: <AiOutlineDashboard size={20} />,
   },
@@ -220,7 +220,7 @@ export const adminSidebar = [
   {
     id: 2,
     type: "SINGLE",
-    text: "Manage users",
+    text: "Quản lí tài khoản",
     path: `/${path.ADMIN}/${path.MANAGE_USER}`,
     icon: <MdGroups size={20} />,
   },
@@ -228,16 +228,16 @@ export const adminSidebar = [
   {
     id: 3,
     type: "PARENT",
-    text: "Manage products",
+    text: "Quản lí sản phẩn",
     icon: <TbBrandProducthunt size={20} />,
     submenu: [
       {
-        text: "Create product",
+        text: "Tạo sản phẩm mới",
         path: `/${path.ADMIN}/${path.CREATE_PRODUCTS}`,
       },
 
       {
-        text: "Manage product",
+        text: "Quản lí sản phẩm",
         path: `/${path.ADMIN}/${path.MANAGE_PRODUCTS}`,
       },
     ],
@@ -246,7 +246,7 @@ export const adminSidebar = [
   {
     id: 4,
     type: "SINGLE",
-    text: "Manage orders",
+    text: "Quản lí đơn hàng",
     path: `/${path.ADMIN}/${path.MANAGE_ORDER}`,
     icon: <RiBillLine size={20} />,
   },
@@ -257,7 +257,7 @@ export const memberSidebar = [
   {
     id: 1,
     type: "SINGLE",
-    text: "Personal",
+    text: "Thông tin cá nhân",
     path: `/${path.MEMBER}/${path.PERSONAL}`,
     icon: <AiOutlineDashboard size={20} />,
   },
@@ -265,7 +265,7 @@ export const memberSidebar = [
   {
     id: 2,
     type: "SINGLE",
-    text: "My cart",
+    text: "Giỏ hàng",
     path: `/${path.MEMBER}/${path.MY_CART}`,
     icon: <MdGroups size={20} />,
   },
@@ -273,7 +273,7 @@ export const memberSidebar = [
   {
     id: 4,
     type: "SINGLE",
-    text: "Buy histories",
+    text: "Lịch sử mua hàng",
     path: `/${path.MEMBER}/${path.HISTORY}`,
     icon: <RiBillLine size={20} />,
   },
@@ -281,7 +281,7 @@ export const memberSidebar = [
   {
     id: 4,
     type: "SINGLE",
-    text: "Wishlist",
+    text: "Sản phẩm yêu thích",
     path: `/${path.MEMBER}/${path.WISHLIST}`,
     icon: <RiBillLine size={20} />,
   },

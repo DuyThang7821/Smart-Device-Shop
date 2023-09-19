@@ -238,7 +238,7 @@ const Login = () => {
           className="text-blue-500 text-sm hover:underline cursor-pointer"
           to={`/${path.HOME}`}
         >
-          Go home
+          Trở lại trang chủ
         </Link>
       </div>
     </div>

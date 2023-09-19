@@ -24,7 +24,7 @@ const VoteOption = ({nameProduct, handleSubmitVoteOption}) =>{
 
             </textarea>
             <div className="w-full flex flex-col gap-4">
-                <p>How do you feel this product</p>
+                <p>Cảm nhận của bạn về sản phẩm</p>
                 <div className="flex justify-center gap-4 items-center">
                     {voteOptions.map(el => (
                         <div 
@@ -43,7 +43,7 @@ const VoteOption = ({nameProduct, handleSubmitVoteOption}) =>{
             </div>
             <Button handleOnClick={() =>handleSubmitVoteOption({comment, score})} 
             fw>
-                Submit</Button>
+                Gửi phản hồi</Button>
         </div>
     )
 }

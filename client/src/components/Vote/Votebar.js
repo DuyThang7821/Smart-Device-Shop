@@ -19,7 +19,7 @@ const Votebar = ({number, ratingCount, ratingTotal}) =>{
                 </div>
             </div>
 
-            <div className="w-[15%] flex justify-end text-xs text-400">{`${ratingCount || 0} reviewers`}</div>
+            <div className="w-[15%] flex justify-end text-xs text-400">{`${ratingCount || 0} Đánh giá`}</div>
 
         </div>
     )

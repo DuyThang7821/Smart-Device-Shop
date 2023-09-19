@@ -99,7 +99,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
       fetchProducts();
     }
     window.scroll(0, 0);
-    titleRef.current.scrollIntoView({block: 'center'})
+    titleRef.current?.scrollIntoView({block: 'center'})
   }, [pid]);
 
   useEffect(() => {
@@ -252,7 +252,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
             )}
           </ul>
           <div className="my-4 flex gap-4">
-            <span className="font-bold">Color:</span>
+            <span className="font-bold">Màu:</span>
             <div className="flex flex-wrap gap-4 items-center w-full">
               <div
                 onClick={() => setVarriant(null)}
@@ -295,14 +295,14 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
           </div>
           <div className="flex flex-col gap-8">
             <div className="flex items-center gap-4">
-              <span className="font-semibold">Quantity</span>
+              <span className="font-semibold">Số lượng</span>
               <SelectQuantity
                 quantity={quantity}
                 handleQuantity={handleQuantity}
                 handleChangeQuantity={handleChangeQuantity}
               />
             </div>
-            <Button handleOnClick={handleAddToCart} fw>Add to cart</Button>
+            <Button handleOnClick={handleAddToCart} fw>Thêm vào giỏ hàng</Button>
           </div>
         </div>
 
@@ -335,7 +335,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
         <>
           <div className="w-main m-auto mt-8">
             <h3 className="text-[20px] font-semibold py-[15px] border-b-4 border-main">
-              OTHER CUSTOMER ALSO LIKED
+              SẢN PHẨM TƯƠNG TỰ
             </h3>
             <CustomSlider normal={true} products={relatedProducts} />
           </div>

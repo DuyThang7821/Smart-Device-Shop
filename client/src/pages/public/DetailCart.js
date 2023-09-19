@@ -14,7 +14,7 @@ const DetailCart = ({ location }) => {
     <div className="w-full">
       <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
         <div className="w-main">
-          <h3 className="font-semibold uppercase text-2xl">My Cart</h3>
+          <h3 className="font-semibold uppercase text-2xl">Giỏ hàng của tôi</h3>
           {/* <Breadcrumb
             category={location?.pathname
               ?.replace("/", "")
@@ -26,9 +26,9 @@ const DetailCart = ({ location }) => {
 
       <div className="flex flex-col border w-main mx-auto my-8">
         <div className="w-main mx-auto bg-blue-500 text-white font-bold py-3  grid grid-cols-10">
-          <span className="col-span-6 w-full text-center">Product</span>
-          <span className="col-span-1 w-full text-center">Quantity</span>
-          <span className="col-span-3 w-full text-center">Price</span>
+          <span className="col-span-6 w-full text-center">Sản phẩm</span>
+          <span className="col-span-1 w-full text-center">Số lượng</span>
+          <span className="col-span-3 w-full text-center">Giá tiền</span>
         </div>
 
         {currentCart?.map((el) => (
@@ -50,8 +50,8 @@ const DetailCart = ({ location }) => {
             currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum, 0)
           )} VND`}</span>
         </span>
-        <span className="text-xs italic">lorem abcdddsadas</span>
-        <Link target="_blank" className="bg-main text-white px-4 py-2 rounded-md" to={`/${path.CHECKOUT}`}>Checkout</Link>
+        <span className="text-xs italic"></span>
+        <Link target="_blank" className="bg-main text-white px-4 py-2 rounded-md" to={`/${path.CHECKOUT}`}>Thanh toán</Link>
       </div>
     </div>
   );

@@ -87,7 +87,7 @@ const MemberSidebar = () => {
            
           </Fragment>
         ))}
-         <NavLink className={clsx(notActiveStyle)} to={"/"}>Home</NavLink>
+         <NavLink className={clsx(notActiveStyle)} to={"/"}>Trang chủ</NavLink>
       </div>
     </div>
   );
