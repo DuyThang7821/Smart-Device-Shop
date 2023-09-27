@@ -32,7 +32,7 @@ const TopHeader = () =>{
             <span>ĐẶT HÀNG ONLINE HOẶC LIÊN HỆ CHO CHÚNG TÔI: 0826257475</span>
             {isLoggedIn && current 
             ? <div className="flex gap-4 text-sm items-center">
-                <span>{`Welcome, ${current?.lastname} ${current?.firstname}`}</span>
+                <span>{`Chào mừng, ${current?.lastname} ${current?.firstname}`}</span>
                 <span
                 onClick={()=> dispatch(logout())}
                 className="cursor-pointer hover:rounded-full hover:bg-gray-200 hover:text-main p-2"><AiOutlineLogout size={18} /></span>

@@ -88,7 +88,7 @@ const Login = () => {
   const finalRegister = async () => {
     const response = await apiFinalRegister(token);
     if (response?.success) {
-      Swal.fire("Congratulation", response?.mes, "success").then(() => {
+      Swal.fire("Đăng kí tài khoản thành công", response?.mes, "success").then(() => {
         setIsRegister(false);
         resetPayload();
       });
@@ -102,8 +102,8 @@ const Login = () => {
         <div className="absolute top-0 right-0 left-0 bottom-0 bg-overlay z-50 flex justify-center items-center">
           <div className="bg-white w-[500px] rounded-md p-8">
             <h4 className="">
-              We sent a code to your email. Please check your mail and enter
-              your code:
+              Chúng tôi đã gữi mã tới email của bạn. Vui lòng kiểm tra thư của bạn
+              và nhập mã:
             </h4>
             <input
               type="text"

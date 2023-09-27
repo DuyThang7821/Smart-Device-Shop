@@ -16,7 +16,7 @@ const createProduct = asyncHandler(async (req, res) => {
   const newProduct = await Product.create(req.body);
   return res.status(200).json({
     success: newProduct ? true : false,
-    mes: newProduct ? "Created" : "Cannot create new product",
+    mes: newProduct ? "Tạo sản phẩm thành công" : "Tạo sản phẩm mới không thành công",
   });
 });
 const getProduct = asyncHandler(async (req, res) => {
@@ -117,7 +117,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   });
   return res.status(200).json({
     success: updatedProduct ? true : false,
-    mes: updatedProduct ? 'Updated' : "Cannot update product",
+    mes: updatedProduct ? 'Cập nhật thành công' : "Cập nhật sản phẩm không thành công",
   });
 });
 const deleteProduct = asyncHandler(async (req, res) => {
@@ -125,7 +125,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const deletedProduct = await Product.findByIdAndDelete(pid);
   return res.status(200).json({
     success: deletedProduct ? true : false,
-    mes: deletedProduct ? 'Deleted' : "Cannot delete product",
+    mes: deletedProduct ? 'Xóa sản phẩm thành công' : "Xóa sản phẩm không thành công",
   });
 });
 
@@ -189,7 +189,7 @@ const uploadImagesProduct = asyncHandler(async (req, res) => {
   });
   return res.status(200).json({
     success: response ? true : false,
-    updatedProduct: response ? response : "cannot upload images Product",
+    updatedProduct: response ? response : "Không thể tải ảnh sản phẩm",
   });
 });
 
@@ -204,7 +204,7 @@ const addVarriant = asyncHandler(async (req, res) => {
   $push: {varriant: {color, price, title, thumb, images, sku: makeSKU().toUpperCase()}}},{new: true})
   return res.status(200).json({
     success: response ? true : false,
-    mes: response ? 'Add varriant success' : "cannot upload images Product",
+    mes: response ? 'Thêm biến thể thành công' : "Thêm biến thể sản phẩm không thành công",
   });
 });
 

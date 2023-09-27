@@ -36,7 +36,7 @@ const register = asyncHandler(async (req, res) => {
       mes: "Missing inputs",
     });
   const user = await User.findOne({ email });
-  if (user) throw new Error("User has existed");
+  if (user) throw new Error("Tài khoản đã tồn tại");
   else {
     const token = makeToken();
     const emailedited = btoa(email) + "@" + token;
@@ -48,11 +48,11 @@ const register = asyncHandler(async (req, res) => {
       mobile,
     });
     if (newUser) {
-      const html = `<h2>Register code:</h2> <br /><blockquote>${token}</blockquote>`;
+      const html = `<h2>Mã đăng kí của bạn:</h2> <br /><blockquote>${token}</blockquote>`;
       await sendMail({
         email,
         html,
-        subject: "Confirm register account in Smart-device-shop",
+        subject: "Hoàn tất đăng kí tài khoản",
       });
     }
     setTimeout(async () => {
@@ -61,8 +61,8 @@ const register = asyncHandler(async (req, res) => {
     return res.json({
       success: newUser ? true : false,
       mes: newUser
-        ? "Please check your email active account"
-        : "Something went wrong, pls try again",
+        ? "Vui lòng kiểm tra email của bạn"
+        : "Có lỗi hãy thữ lại",
     });
   }
 });
@@ -79,8 +79,8 @@ const finalRegister = asyncHandler(async (req, res) => {
   return res.json({
     success: notActivedEmail ? true : false,
     mes: notActivedEmail
-      ? "Register is successfully. Please go login"
-      : "Something went wrong, pls try again",
+      ? "Đăng kí thành công, hãy đi đến đăng nhập"
+      : "Có lỗi, hãy thữ lại",
   });
 });
 
@@ -122,7 +122,7 @@ const login = asyncHandler(async (req, res) => {
       userData,
     });
   } else {
-    throw new Error("Invalid credentials!");
+    throw new Error("Thông tin không hợp lệ!");
   }
 });
 
@@ -233,7 +233,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   await user.save();
   return res.status(200).json({
     success: user ? true : false,
-    mes: user ? "Updated password" : "Something went wrong",
+    mes: user ? "Cập nhật mật khẩu thành công" : "Có lỗi, hãy thữ lại",
   });
 });
 
@@ -298,7 +298,7 @@ const getUsers = asyncHandler(async (req, res) => {
     return res.status(200).json({
       success: response ? true : false,
       counts,
-      users: response ? response : "Cannot get users",
+      users: response ? response : "Không thể hiển thị tài khoản",
     });
   });
 });
@@ -310,8 +310,8 @@ const deleteUser = asyncHandler(async (req, res) => {
   return res.status(200).json({
     success: response ? true : false,
     mes: response
-      ? `User with email ${response.email} deleted`
-      : "No user delete",
+      ? `Tài khoản có email ${response.email} đã bị xóa`
+      : "Không xóa được tài khoản",
   });
 });
 
@@ -327,7 +327,7 @@ const updateUser = asyncHandler(async (req, res) => {
   }).select("-password -role -refreshToken");
   return res.status(200).json({
     success: response ? true : false,
-    mes: response ? "Updated" : "Some thing went wrong",
+    mes: response ? "Cập nhật thành công" : "Có lỗi hãy thữ lại",
   });
 });
 
@@ -340,7 +340,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
   }).select("-password -role -refreshToken");
   return res.status(200).json({
     success: response ? true : false,
-    mes: response ? "updated" : "Some thing went wrong",
+    mes: response ? "Cập nhật thành công" : "Có lỗi, hãy thữ lại",
   });
 });
 
@@ -379,7 +379,7 @@ const updateCart = asyncHandler(async (req, res) => {
     );
     return res.status(200).json({
       success: response ? true : false,
-      mes: response ? 'Updated your cart' : "Something went wrong",
+      mes: response ? 'Thêm vào giỏ hàng thành công' : "Có lỗi, hãy thữ lại",
     });
   } else {
     const response = await User.findByIdAndUpdate(
@@ -389,7 +389,7 @@ const updateCart = asyncHandler(async (req, res) => {
     );
     return res.status(200).json({
       success: response ? true : false,
-      mes: response ? 'Updated your cart' : "Something went wrong",
+      mes: response ? 'Thêm vào giỏ hàng thành công' : "Có lỗi, hãy thữ lại",
     });
   }
 });
@@ -403,7 +403,7 @@ const removeProductInCart =  asyncHandler(async (req, res) => {
   );
   if (!alreadyProduct) return res.status(200).json({
     success: true,
-    mes:'Updated your cart'
+    mes:'Xóa sản phẩm trong giỏ hàng thành công'
   });
   const response = await User.findByIdAndUpdate(
     _id,
@@ -412,7 +412,7 @@ const removeProductInCart =  asyncHandler(async (req, res) => {
   );
   return res.status(200).json({
     success: response ? true : false,
-    mes: response ? 'Updated your cart' : "Something went wrong",
+    mes: response ? 'Xóa sản phẩm trong giỏ hàng thành công' : "Có lỗi hãy thữ lại",
   });
 });
 
