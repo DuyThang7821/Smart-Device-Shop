@@ -1,0 +1,29 @@
+bcrypt (^5.1.1): Thư viện giúp mã hóa mật khẩu. Thường được sử dụng để bảo vệ mật khẩu trong cơ sở dữ liệu.
+
+cloudinary (^1.40.0): Dịch vụ lưu trữ và quản lý hình ảnh trực tuyến. Thư viện này giúp tương tác với Cloudinary để tải lên và quản lý các tệp đa phương tiện.
+
+cookie-parser (^1.4.6): Middleware giúp xử lý và phân tích cú pháp của cookie trong Express.
+
+cors (^2.8.5): Middleware giúp quản lý chính sách Same-Origin Resource Sharing (CORS) trong Express, cho phép hoặc từ chối các yêu cầu từ các nguồn khác nhau.
+
+crypto-js (^4.1.1): Thư viện mã hóa và giải mã trong Node.js. Được sử dụng để thực hiện các thao tác mã hóa trong ứng dụng.
+
+dotenv (^16.3.1): Giúp đọc các biến môi trường từ một tệp .env, giúp quản lý cấu hình của ứng dụng mà không cần phải trực tiếp cài đặt trong mã nguồn.
+
+express (^4.18.2): Framework web cho Node.js, giúp xây dựng các ứng dụng web và API một cách nhanh chóng và dễ dàng.
+
+express-async-handler (^1.2.0): Middleware giúp xử lý lỗi cho các hàm xử lý yêu cầu không đồng bộ trong Express.
+
+jsonwebtoken (^9.0.1): Thư viện tạo và xác minh JSON Web Tokens (JWT). Thường được sử dụng để xác thực người dùng trong các ứng dụng web và API.
+
+mongoose (^6.10.0): ODM (Object Data Modeling) cho MongoDB và Node.js. Hỗ trợ tương tác với cơ sở dữ liệu MongoDB thông qua mô hình đối tượng.
+
+multer (^1.4.5-lts.1): Middleware giúp xử lý tệp được tải lên từ các biểu mẫu HTML. Thường được sử dụng để xử lý tệp đa phương tiện trong Express.
+
+multer-storage-cloudinary (^4.0.0): Phần mở rộng cho Multer, giúp lưu trữ tệp đa phương tiện trực tiếp vào Cloudinary.
+
+nodemailer (^6.9.4): Thư viện giúp gửi email trong ứng dụng Node.js. Thường được sử dụng để gửi email xác minh, thông báo, và liên quan đến chức năng gửi email.
+
+slugify (^1.6.6): Thư viện giúp chuyển đổi các chuỗi thành định dạng thân thiện với SEO bằng cách loại bỏ các ký tự không hợp lệ và thay thế khoảng trắng bằng dấu gạch nối.
+
+uniqid (^5.4.0): Thư viện giúp tạo ra các ID duy nhất. Thường được sử dụng để tạo khóa chính duy nhất cho các bản ghi trong cơ sở dữ liệu.

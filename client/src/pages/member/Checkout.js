@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import payment from "assets/payment.svg";
 import { useSelector } from "react-redux";
 import { formatMoney } from "ultils/helpers";
-import { Paypal } from "components";
+import { Congrat, Paypal } from "components";
 import InputForm from "components/inputs/inputForm";
 import { useForm } from "react-hook-form";
+import WithBaseComponent from "hocs/withBaseComponent";
+import { getCurrent } from "store/user/asyncActions";
 
-const Checkout = () => {
-  const { currentCart } = useSelector((state) => state.user);
+const Checkout = ({dispatch, navigate}) => {
+  const { currentCart, current } = useSelector((state) => state.user);
   const {
     register,
     formState: { errors },
-    reset,
-    handleSubmit,
     watch,
+    setValue,
   } = useForm();
-  console.log(+currentCart?.reduce(
-    (sum, el) => +el?.price * el.quantity + sum,
-    0 /23500
-  ));
+  const [ isSuccess, setIsSuccess] = useState(false)
+  const address = watch("address");
+  useEffect(() =>{
+    setValue('address', current?.address)
+  }, [current.address])
+  
+  useEffect(() =>{
+    if (isSuccess) dispatch(getCurrent())
+  }, [isSuccess])
   return (
     <div className="p-8 py-8 grid grid-cols-10 h-full max-h-screen overflow-y-auto gap-6">
+
+      {isSuccess && <Congrat />}
       <div className="w-full flex justify-center items-center col-span-4">
         <img src={payment} alt="payment" className="h-[70%] object-contain" />
       </div>
@@ -68,19 +76,37 @@ const Checkout = () => {
                 validate={{
                   required: "Trường này không được để trống",
                 }}
-                placeholder="Địa chỉ của bạn"
+                placeholder="Nhập địa chỉ"
                 style="text-sm"
               />
             </div>
-            <div>
-              <Paypal
-                amount={Math.round(+currentCart?.reduce((sum, el) => +el?.price * el.quantity + sum,0) / 23500)}
-              />
-            </div>
+            {
+              <div className="w-full mx-auto">
+                <Paypal
+                  payload={{
+                    products: currentCart, 
+                    total: Math.round(
+                    +currentCart?.reduce(
+                      (sum, el) => +el?.price * el.quantity + sum,
+                      0
+                    ) / 23500
+                  ),
+                  address 
+                }}
+                  setIsSuccess = {setIsSuccess}
+                  amount={Math.round(
+                    +currentCart?.reduce(
+                      (sum, el) => +el?.price * el.quantity + sum,
+                      0
+                    ) / 23500
+                  )}
+                />
+              </div>
+            }
           </div>
         </div>
       </div>
     </div>
   );
 };
-export default Checkout;
+export default WithBaseComponent(Checkout);

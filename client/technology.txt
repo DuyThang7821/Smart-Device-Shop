@@ -1,0 +1,51 @@
+@paypal/react-paypal-js (^8.1.3): Thư viện giúp tích hợp thanh toán PayPal vào ứng dụng React của bạn.
+
+@reduxjs/toolkit (^1.9.5): Redux Toolkit cung cấp một cách thuận tiện để quản lý trạng thái của ứng dụng React thông qua Redux, giúp giảm boilerplate code.
+
+@tailwindcss/line-clamp (^0.4.4): Plugin của Tailwind CSS để hỗ trợ thuộc tính line-clamp trong CSS, giúp giới hạn số dòng của một đoạn văn bản.
+
+@testing-library/jest-dom (^5.17.0): Thư viện hỗ trợ việc kiểm thử (testing) cho React với Jest, cung cấp các utility functions cho việc kiểm thử DOM.
+
+@testing-library/react (^13.4.0): Testing Library là một bộ công cụ giúp kiểm thử ứng dụng React một cách đơn giản và hiệu quả.
+
+@testing-library/user-event (^14.4.3): Thư viện giả lập các sự kiện người dùng để kiểm thử.
+
+@tinymce/tinymce-react (^4.3.0): Thư viện giúp tích hợp trình soạn thảo văn bản TinyMCE vào ứng dụng React.
+
+axios (^1.4.0): Thư viện giúp thực hiện các yêu cầu HTTP từ client đến server.
+
+clsx (^2.0.0): Thư viện giúp xây dựng các class name dễ dàng trong React, hỗ trợ xử lý logic điều kiện và dynamic class names.
+
+dompurify (^3.0.5): Thư viện giúp lọc và xử lý an toàn HTML để tránh tấn công XSS (Cross-Site Scripting).
+
+eslint-plugin-react-hooks (^5.0.0-canary-ab31a9ed2-20230824): Plugin cho ESLint giúp kiểm tra việc sử dụng hooks trong React.
+
+moment (^2.29.4): Thư viện giúp làm việc với thời gian và ngày tháng trong JavaScript.
+
+react (^18.2.0) và react-dom (^18.2.0): Thư viện cơ bản cho việc phát triển ứng dụng React.
+
+react-hook-form (^7.46.0): Thư viện giúp quản lý và xử lý biểu mẫu trong React một cách hiệu quả.
+
+react-icons (^4.10.1): Thư viện cung cấp các biểu tượng (icons) cho ứng dụng React.
+
+react-image-magnify (^2.7.4): Thư viện hỗ trợ hiển thị và phóng to hình ảnh trong ứng dụng React.
+
+react-masonry-css (^1.0.16): Thư viện giúp tạo layout masonry (gạch xiên) trong React.
+
+react-redux (^8.1.2) và redux-persist (^6.0.0): Thư viện hỗ trợ quản lý trạng thái của ứng dụng React thông qua Redux và lưu trạng thái vào localStorage.
+
+react-router-dom (^6.15.0): Thư viện giúp quản lý định tuyến (routing) trong ứng dụng React.
+
+react-scripts (5.0.1): Công cụ giúp quản lý kịch bản và cấu hình cho ứng dụng React.
+
+react-slick (^0.29.0) và slick-carousel (^1.8.1): Thư viện giúp tạo và tùy chỉnh carousel trong React.
+
+react-spinners (^0.13.8): Thư viện cung cấp các spinner (biểu tượng quay) cho ứng dụng React.
+
+react-toastify (^9.1.3): Thư viện giúp hiển thị thông báo (toasts) trong React.
+
+sweetalert2 (^11.7.27): Thư viện giúp hiển thị các thông báo tương tác (alerts) trong ứng dụng React.
+
+use-react-router-breadcrumbs (^4.0.1): Hook giúp quản lý breadcrumb trong React Router.
+
+web-vitals (^2.1.4): Thư viện giúp theo dõi các chỉ số hiệu suất của ứng dụng web.

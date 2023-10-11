@@ -46,3 +46,10 @@ export const apiDeleteProduct = (pid) =>
     method: "put",
     data
   });
+
+  export const apiCreateOrder = (data) =>
+  axios({
+    url: "/order/",
+    method: "post",
+    data
+  });
