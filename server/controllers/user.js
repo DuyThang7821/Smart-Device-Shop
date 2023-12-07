@@ -60,9 +60,7 @@ const register = asyncHandler(async (req, res) => {
     }, [300000]);
     return res.json({
       success: newUser ? true : false,
-      mes: newUser
-        ? "Vui lòng kiểm tra email của bạn"
-        : "Có lỗi hãy thữ lại",
+      mes: newUser ? "Vui lòng kiểm tra email của bạn" : "Có lỗi hãy thữ lại",
     });
   }
 });
@@ -128,13 +126,15 @@ const login = asyncHandler(async (req, res) => {
 
 const getCurrent = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const user = await User.findById(_id).select("-refreshToken -password").populate({
-    path : 'cart',
-    populate: {
-      path: 'product',
-      select: 'title thumb price'
-    }
-  })
+  const user = await User.findById(_id)
+    .select("-refreshToken -password")
+    .populate({
+      path: "cart",
+      populate: {
+        path: "product",
+        select: "title thumb price",
+      },
+    }).populate('wishlist', 'title thumb price color')
   return res.status(200).json({
     success: user ? true : false,
     rs: user ? user : "User not found",
@@ -317,8 +317,8 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const updateUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { firstname, lastname, email, mobile } = req.body;
-  const data = { firstname, lastname, email, mobile };
+  const { firstname, lastname, email, mobile, address } = req.body;
+  const data = { firstname, lastname, email, mobile, address };
   if (req.file) data.avatar = req.file.path;
   if (!_id || Object.keys(req.body).length === 0)
     throw new Error("Missing inputs");
@@ -364,55 +364,64 @@ const updateCart = asyncHandler(async (req, res) => {
   if (!pid || !color) throw new Error("Missing Input");
   const user = await User.findById(_id).select("cart");
   const alreadyProduct = user?.cart?.find(
-    el => el.product.toString() === pid && el.color === color
+    (el) => el.product.toString() === pid && el.color === color
   );
   if (alreadyProduct) {
     const response = await User.updateOne(
       { cart: { $elemMatch: alreadyProduct } },
-      { $set: { 
-        "cart.$.quantity": quantity, 
-        "cart.$.price" : price, 
-        "cart.$.thumbnail" : thumbnail,
-        "cart.$.title" : title
-        } },
+      {
+        $set: {
+          "cart.$.quantity": quantity,
+          "cart.$.price": price,
+          "cart.$.thumbnail": thumbnail,
+          "cart.$.title": title,
+        },
+      },
       { new: true }
     );
     return res.status(200).json({
       success: response ? true : false,
-      mes: response ? 'Thêm vào giỏ hàng thành công' : "Có lỗi, hãy thữ lại",
+      mes: response ? "Thêm vào giỏ hàng thành công" : "Có lỗi, hãy thữ lại",
     });
   } else {
     const response = await User.findByIdAndUpdate(
       _id,
-      { $push: { cart: { product: pid, quantity, color, price, thumbnail, title } } },
+      {
+        $push: {
+          cart: { product: pid, quantity, color, price, thumbnail, title },
+        },
+      },
       { new: true }
     );
     return res.status(200).json({
       success: response ? true : false,
-      mes: response ? 'Thêm vào giỏ hàng thành công' : "Có lỗi, hãy thữ lại",
+      mes: response ? "Thêm vào giỏ hàng thành công" : "Có lỗi, hãy thữ lại",
     });
   }
 });
-const removeProductInCart =  asyncHandler(async (req, res) => {
+const removeProductInCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { pid, color} = req.params;
-  
+  const { pid, color } = req.params;
+
   const user = await User.findById(_id).select("cart");
   const alreadyProduct = user?.cart?.find(
     (el) => el.product.toString() === pid && el.color === color
   );
-  if (!alreadyProduct) return res.status(200).json({
-    success: true,
-    mes:'Xóa sản phẩm trong giỏ hàng thành công'
-  });
+  if (!alreadyProduct)
+    return res.status(200).json({
+      success: true,
+      mes: "Xóa sản phẩm trong giỏ hàng thành công",
+    });
   const response = await User.findByIdAndUpdate(
     _id,
-    { $pull: { cart: { product: pid, color} } },
+    { $pull: { cart: { product: pid, color } } },
     { new: true }
   );
   return res.status(200).json({
     success: response ? true : false,
-    mes: response ? 'Xóa sản phẩm trong giỏ hàng thành công' : "Có lỗi hãy thữ lại",
+    mes: response
+      ? "Xóa sản phẩm trong giỏ hàng thành công"
+      : "Có lỗi hãy thữ lại",
   });
 });
 
@@ -422,6 +431,34 @@ const createUsers = asyncHandler(async (req, res) => {
     success: response ? true : false,
     users: response ? response : "Something went wrong",
   });
+});
+
+const updateWishlist = asyncHandler(async (req, res) => {
+  const { pid } = req.params;
+  const { _id } = req.user;
+  const user = await User.findById(_id);
+  const alreadyInWishlist = user.wishlist?.find((el) => el.toString() === pid);
+  if (alreadyInWishlist) {
+    const response = await User.findByIdAndUpdate(
+      _id,
+      { $pull: { wishlist: pid } },
+      { new: true }
+    );
+    return res.json({
+      success: response ? true : false,
+      mes: response ? "updated your wishlist" : "failed",
+    });
+  } else {
+    const response = await User.findByIdAndUpdate(
+      _id,
+      { $push: { wishlist: pid } },
+      { new: true }
+    );
+    return res.json({
+      success: response ? true : false,
+      mes: response ? "updated your wishlist" : "failed",
+    });
+  }
 });
 
 module.exports = {
@@ -440,5 +477,6 @@ module.exports = {
   updateCart,
   finalRegister,
   createUsers,
-  removeProductInCart
+  removeProductInCart,
+  updateWishlist,
 };

@@ -1,15 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getNewProducts } from "./asynsActions";
+import { BsNutFill } from "react-icons/bs";
 
 export const productSlice = createSlice({
   name: "product",
   initialState: {
     newProducts: null,
     errorMessage: '',
+    dealDaily: BsNutFill
     
   },
   reducers: {
-
+    getDealDaily: (state, action) => {
+      state.dealDaily = action.payload
+    }
   },
   // Code logic xử lý async action
   extraReducers: (builder) => {
@@ -29,5 +33,5 @@ export const productSlice = createSlice({
   },
 });
 
-// export const { } = productSlice.actions;
+export const {getDealDaily } = productSlice.actions;
 export default productSlice.reducer;

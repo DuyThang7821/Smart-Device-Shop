@@ -2,7 +2,7 @@ const { response } = require("express");
 const Product = require("../models/product");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
-const makeSKU = require('uniqid')
+const makeSKU = require("uniqid");
 
 const createProduct = asyncHandler(async (req, res) => {
   const { title, price, description, brand, category, color } = req.body;
@@ -16,7 +16,9 @@ const createProduct = asyncHandler(async (req, res) => {
   const newProduct = await Product.create(req.body);
   return res.status(200).json({
     success: newProduct ? true : false,
-    mes: newProduct ? "Tạo sản phẩm thành công" : "Tạo sản phẩm mới không thành công",
+    mes: newProduct
+      ? "Tạo sản phẩm thành công"
+      : "Tạo sản phẩm mới không thành công",
   });
 });
 const getProduct = asyncHandler(async (req, res) => {
@@ -53,6 +55,8 @@ const getProducts = asyncHandler(async (req, res) => {
     formatedQueries.title = { $regex: queries.title, $options: "i" };
   if (queries?.category)
     formatedQueries.category = { $regex: queries.category, $options: "i" };
+  if (queries?.brand)
+    formatedQueries.brand = { $regex: queries.brand, $options: "i" };
   if (queries?.color) {
     delete formatedQueries.color;
     const colorArr = queries.color?.split(",");
@@ -66,15 +70,17 @@ const getProducts = asyncHandler(async (req, res) => {
   if (queries?.q) {
     delete formatedQueries.q;
 
-    colorQueryObject = { $or: [
-      { color: { $regex: queries.q, $options: "i" } },
-      { title: { $regex: queries.q, $options: "i" } },
-      { category: { $regex: queries.q, $options: "i" } },
-      { brand: { $regex: queries.q, $options: "i" } },
-      // { description: { $regex: queries.q, $options: "i" } },
-      
-    ] };
+    colorQueryObject = {
+      $or: [
+        { color: { $regex: queries.q, $options: "i" } },
+        { title: { $regex: queries.q, $options: "i" } },
+        { category: { $regex: queries.q, $options: "i" } },
+        { brand: { $regex: queries.q, $options: "i" } },
+        // { description: { $regex: queries.q, $options: "i" } },
+      ],
+    };
   }
+
   const qr = { ...colorQueryObject, ...formatedQueries, ...queryObject };
   let queryCommand = Product.find(qr);
 
@@ -108,16 +114,18 @@ const getProducts = asyncHandler(async (req, res) => {
 });
 const updateProduct = asyncHandler(async (req, res) => {
   const { pid } = req.params;
-  const files = req?.files
-  if(files?.thumb) req.body.thumb = files?.thumb[0]?.path
-  if(files?.images) req.body.images = files?.images?.map(el => el.path)
+  const files = req?.files;
+  if (files?.thumb) req.body.thumb = files?.thumb[0]?.path;
+  if (files?.images) req.body.images = files?.images?.map((el) => el.path);
   if (req.body && req.body.title) req.body.slug = slugify(req.body.title);
   const updatedProduct = await Product.findByIdAndUpdate(pid, req.body, {
     new: true,
   });
   return res.status(200).json({
     success: updatedProduct ? true : false,
-    mes: updatedProduct ? 'Cập nhật thành công' : "Cập nhật sản phẩm không thành công",
+    mes: updatedProduct
+      ? "Cập nhật thành công"
+      : "Cập nhật sản phẩm không thành công",
   });
 });
 const deleteProduct = asyncHandler(async (req, res) => {
@@ -125,7 +133,9 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const deletedProduct = await Product.findByIdAndDelete(pid);
   return res.status(200).json({
     success: deletedProduct ? true : false,
-    mes: deletedProduct ? 'Xóa sản phẩm thành công' : "Xóa sản phẩm không thành công",
+    mes: deletedProduct
+      ? "Xóa sản phẩm thành công"
+      : "Xóa sản phẩm không thành công",
   });
 });
 
@@ -198,13 +208,28 @@ const addVarriant = asyncHandler(async (req, res) => {
   const { title, price, color } = req.body;
   const thumb = req?.files?.thumb[0]?.path;
   const images = req?.files?.images.map((el) => el.path);
-  if (!(title && price &&  color))
-    throw new Error("Missing inputs");
-  const response = await Product.findByIdAndUpdate(pid, {
-  $push: {varriant: {color, price, title, thumb, images, sku: makeSKU().toUpperCase()}}},{new: true})
+  if (!(title && price && color)) throw new Error("Missing inputs");
+  const response = await Product.findByIdAndUpdate(
+    pid,
+    {
+      $push: {
+        varriant: {
+          color,
+          price,
+          title,
+          thumb,
+          images,
+          sku: makeSKU().toUpperCase(),
+        },
+      },
+    },
+    { new: true }
+  );
   return res.status(200).json({
     success: response ? true : false,
-    mes: response ? 'Thêm biến thể thành công' : "Thêm biến thể sản phẩm không thành công",
+    mes: response
+      ? "Thêm biến thể thành công"
+      : "Thêm biến thể sản phẩm không thành công",
   });
 });
 
@@ -216,5 +241,5 @@ module.exports = {
   deleteProduct,
   ratings,
   uploadImagesProduct,
-  addVarriant
+  addVarriant,
 };

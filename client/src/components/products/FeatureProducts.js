@@ -18,13 +18,7 @@ const FeatureProducts = () => {
       </h3>
       <div className=" flex flex-wrap mt-[15px] mx-[-10px] ">
         {products?.map((el) => (
-          <ProductCard
-            key={el._id}
-            image={el.thumb}
-            title={el.title}
-            totalRatings={el.totalRatings}
-            price={el.price}
-          />
+          <ProductCard key={el._id} pid={el._id} image={el.thumb} {...el} />
         ))}
       </div>
       <div className="grid grid-cols-4 grid-rows-2 gap-4">
@@ -38,7 +32,7 @@ const FeatureProducts = () => {
           alt=""
           className="w-full h-full object-cover col-span-1 row-span-1 rounded-md"
         />
-          <img
+        <img
           src="https://digital-world-2.myshopify.com/cdn/shop/files/banner4-bottom-home2_92e12df0-500c-4897-882a-7d061bb417fd_400x.jpg?v=1613166661"
           alt=""
           className="w-full h-full object-cover col-span-1 row-span-2 rounded-md"
@@ -48,8 +42,6 @@ const FeatureProducts = () => {
           alt=""
           className="w-full h-full object-cover col-span-1 row-span-1 rounded-md"
         />
-
-
       </div>
     </div>
   );

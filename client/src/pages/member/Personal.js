@@ -8,16 +8,20 @@ import avatar from "assets/avatarDefault.jpg";
 import { apiUpdateCurrent } from "apis";
 import { getCurrent } from "store/user/asyncActions";
 import { toast } from "react-toastify";
+import WithBaseComponent from "hocs/withBaseComponent";
+import { useSearchParams } from "react-router-dom";
 
-const Personal = () => {
+const Personal = ({navigate}) => {
   const {
     register,
     formState: { errors, isDirty },
     handleSubmit,
     reset,
+    watch
   } = useForm();
   const { current } = useSelector((state) => state.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams()
   useEffect(() => {
     reset({
       firstname: current?.firstname,
@@ -25,6 +29,7 @@ const Personal = () => {
       mobile: current?.mobile,
       email: current?.email,
       avatar: current?.avatar,
+      address: current?.address,
     });
   }, [current]);
   const handleUpdateInfor = async (data) => {
@@ -34,13 +39,14 @@ const Personal = () => {
 
     delete data.avatar;
     for (let i of Object.entries(data)) formData.append(i[0], i[1]);
-    const response = await apiUpdateCurrent(formData)
-    if(response.success) {
-      dispatch(getCurrent())
-      toast.success(response.mes)
-    }else toast.error(response.mes)
+    const response = await apiUpdateCurrent(formData);
+    if (response.success) {
+      dispatch(getCurrent());
+      toast.success(response.mes);
+      if (searchParams.get('redirect')) navigate(searchParams.get('redirect'))
+    } else toast.error(response.mes);
   };
-  
+
   return (
     <div className="w-full relative px-4">
       <header className="text-3xl font-bold py-4 border-b border-b-blue-800">
@@ -99,6 +105,16 @@ const Personal = () => {
           }}
         />
 
+        <InputForm
+          label="Địa chỉ"
+          register={register}
+          errors={errors}
+          id="address"
+          validate={{
+            required: "Trường này không được để trống",
+          }}
+        />
+
         <div className="flex items-center gap-2">
           <span className="font-medium">Trạng thái tài khoản:</span>
           <span>{current?.isBlocked ? "Blocked" : "Actived"}</span>
@@ -134,4 +150,4 @@ const Personal = () => {
     </div>
   );
 };
-export default Personal;
+export default WithBaseComponent(Personal);

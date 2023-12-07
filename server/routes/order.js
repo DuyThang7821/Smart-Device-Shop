@@ -4,6 +4,7 @@ const ctrls = require ('../controllers/order');
 
 router.post('/', verifyAccessToken, ctrls.createOrder)
 router.put('/status/:oid', verifyAccessToken,isAdmin, ctrls.updateStatus);
-router.get('/', verifyAccessToken, ctrls.getUserOrder);
 router.get('/admin', verifyAccessToken,isAdmin, ctrls.getOrders);
+router.get('/', verifyAccessToken, ctrls.getUserOrders);
+
 module.exports = router;

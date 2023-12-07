@@ -98,8 +98,9 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
       fetchProductData();
       fetchProducts();
     }
-    window.scroll(0, 0);
+    // window.scrollTo(0, 0);
     titleRef.current?.scrollIntoView({block: 'center'})
+    
   }, [pid]);
 
   useEffect(() => {
@@ -160,11 +161,11 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
     else toast.error(response.mes)
   }
   return (
-    <div  className={clsx('w-full')}>
+    <devicePixelRatio className={clsx('w-full')}>
       {!isQuickView && (
         <div className="h-[81px]  bg-gray-100 flex justify-center items-center">
-          <div ref={titleRef} className="w-main">
-            <h3 className="font-semibold">
+          <div  className="w-main">
+            <h3 ref={titleRef} className="font-semibold">
               {currentProduct?.title || product?.title}
             </h3>
             <Breadcrumb
@@ -342,7 +343,7 @@ const DetailProduct = ({ isQuickView, data, location, dispatch, navigate}) => {
           <div className="h-[200px] w-full"></div>
         </>
       )}
-    </div>
+    </devicePixelRatio>
   );
 };
 export default WithBaseComponent(DetailProduct);

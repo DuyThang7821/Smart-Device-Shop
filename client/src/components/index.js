@@ -20,6 +20,7 @@ export {default as ProductExtraInfoItem} from './products/ProductExtrainfoitem';
 export {default as ProductInfomation} from './products/Productinformation';
 export {default as SearchItem} from './search/Searchitem';
 export {default as InputSelect} from './inputs/inputSelect';
+export {default as CustomSelect} from './inputs/CustomSelect';
 export {default as Votebar} from './Vote/Votebar';
 export {default as Ratings} from './Ratings';
 export {default as VoteOption} from './Vote/VoteOption';

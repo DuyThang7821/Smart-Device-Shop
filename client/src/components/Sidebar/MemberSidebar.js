@@ -3,6 +3,7 @@ import avatar from "assets/avatarDefault.jpg";
 import { adminSidebar, memberSidebar } from "ultils/contants";
 import { NavLink, Link } from "react-router-dom";
 import clsx from "clsx";
+import { TbArrowForwardUp} from 'react-icons/tb'
 import {
   AiOutlineCaretDown,
   AiOutlineCaretLeft,
@@ -87,7 +88,7 @@ const MemberSidebar = () => {
            
           </Fragment>
         ))}
-         <NavLink className={clsx(notActiveStyle)} to={"/"}>Trang chủ</NavLink>
+         <NavLink className={clsx(notActiveStyle)} to={"/"}><TbArrowForwardUp size={18} />Trang chủ</NavLink>
       </div>
     </div>
   );
