@@ -44,7 +44,7 @@ const History = ({ navigate, location }) => {
   return (
     <div className="w-full relative px-4">
       <header className="text-3xl font-bold py-4 border-b border-b-blue-800">
-        Trang lich su mua hang
+        LỊCH SỬ MUA HÀNG
       </header>
       <div className="flex justify-end items-center px-4">
         <form className="w-[45%] grid grid-cols-2 gap-4">

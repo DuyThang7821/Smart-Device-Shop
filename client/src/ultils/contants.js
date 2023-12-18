@@ -228,7 +228,7 @@ export const adminSidebar = [
   {
     id: 3,
     type: "PARENT",
-    text: "Quản lí sản phẩn",
+    text: "Quản lí sản phẩm",
     icon: <TbBrandProducthunt size={20} />,
     submenu: [
       {

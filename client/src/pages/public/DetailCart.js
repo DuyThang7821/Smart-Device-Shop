@@ -69,7 +69,7 @@ const DetailCart = ({ location, navigate }) => {
           )} VND`}</span>
         </span>
         <span className="text-xs italic"></span>
-        <Button handleOnClick={handleSubmit}>Checkout</Button>
+        <Button handleOnClick={handleSubmit}>Thanh toán</Button>
       </div>
     </div>
   );

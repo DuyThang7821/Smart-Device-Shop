@@ -135,14 +135,18 @@ const Login = () => {
             />
             <div className="flex items-center justify-end  w-full gap-4">
               <Button
+                className ="text-white font-semibold"
                 name="Trở về"
                 handleOnClick={() => setIsForgotPassword(false)}
-                style="px-4 py-2 rounded-md text-gray-700 bg-yellow-500 text-semibold my-2"
+                style="px-8 py-4 rounded-md text-white-100 bg-yellow-500 text-semibold my-2 font-semibold"
+                
               />
+              
               <Button
+                className ="px-8 py-4 rounded-md text-white-100 bg-blue-600 text-semibold my-2"
                 name="Gửi"
                 handleOnClick={handleForgotPassword}
-                style="px-4 py-2 rounded-md text-white bg-blue-600 text-semibold my-2"
+                style="px-8 py-4 rounded-md text-black bg-blue-600 text-semibold my-2"
               />
             </div>
           </div>
