@@ -9,7 +9,6 @@ const WithBaseComponent = (Component) => (props) =>{
     const dispatch = useDispatch()
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const location = useLocation()
-
     return <Component {...props} navigate={navigate} dispatch={dispatch} location={location} />
 }
 
